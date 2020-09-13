@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="805743e4-675f-47a7-b21f-ac5fe259c9c5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/DecisionTrees/gainDTree-Entropy.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DecisionTrees/RandomForests.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JupyterTrust" id="77620953-6b4f-46ed-b173-b7b0641cb143" />
+  <component name="ProjectId" id="1h1vABixQjsyTz07UKeo8zf8hn0" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.gainDTree-Entropy (1)">
+    <configuration name="RandomForests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DecisionTrees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTrees/RandomForests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="classDefinitions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DecisionTrees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTrees/classDefinitions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gainDTree-Entropy (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DecisionTrees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTrees/gainDTree-Entropy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gainDTree-Entropy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DecisionTrees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\MachineLearning\DecisionTrees\gainDTree-Entropy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="viDTree" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DecisionTrees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTrees/viDTree.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.gainDTree-Entropy (1)" />
+        <item itemvalue="Python.viDTree" />
+        <item itemvalue="Python.gainDTree-Entropy" />
+        <item itemvalue="Python.RandomForests" />
+        <item itemvalue="Python.classDefinitions" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="805743e4-675f-47a7-b21f-ac5fe259c9c5" name="Default Changelist" comment="" />
+      <created>1599191272513</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599191272513</updated>
+      <workItem from="1599191273896" duration="1900000" />
+      <workItem from="1599193233189" duration="1085000" />
+      <workItem from="1599194507101" duration="23113000" />
+      <workItem from="1599392708011" duration="19288000" />
+      <workItem from="1599416932166" duration="11790000" />
+      <workItem from="1599488152377" duration="2398000" />
+      <workItem from="1599652140504" duration="12077000" />
+      <workItem from="1599825156093" duration="6227000" />
+      <workItem from="1599900159271" duration="8878000" />
+      <workItem from="1599990721304" duration="23765000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="698" y="343" key="#Notifications" timestamp="1599198419998">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="698" y="343" key="#Notifications/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599198419998" />
+    <state x="265" y="146" width="1092" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599218225990">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="265" y="146" width="1092" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599218225990" />
+    <state x="207" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1500.960@0.0.1500.960" timestamp="1599191422479" />
+    <state x="513" y="282" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599192270727">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="513" y="282" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1500.960@0.0.1500.960" timestamp="1599192270727" />
+    <state x="244" y="330" width="1189" height="497" key="#xdebugger.XInspectDialog" timestamp="1600009183484">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="280" y="272" key="#xdebugger.XInspectDialog/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599227054942" />
+    <state x="244" y="330" width="1189" height="497" key="#xdebugger.XInspectDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600009183484" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1600024644187">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600024644187" />
+    <state x="680" y="255" key="FileChooserDialogImpl" timestamp="1600024081472">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1599193187687" />
+    <state x="680" y="255" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600024081472" />
+    <state x="819" y="417" key="Github.ShareDialog" timestamp="1600024295661">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="819" y="417" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600024295661" />
+    <state width="1247" height="346" key="GridCell.Tab.0.bottom" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.0.bottom/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596416" />
+    <state width="1247" height="346" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.0.center" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.0.center/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596415" />
+    <state width="1247" height="346" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.0.left" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.0.left/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596410" />
+    <state width="1247" height="346" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.0.right" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.0.right/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596416" />
+    <state width="1247" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.1.bottom" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.1.bottom/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596420" />
+    <state width="1247" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.1.center" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.1.center/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596417" />
+    <state width="1247" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.1.left" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.1.left/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596417" />
+    <state width="1247" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state width="1247" height="346" key="GridCell.Tab.1.right" timestamp="1599835983214">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1109" height="346" key="GridCell.Tab.1.right/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599701596419" />
+    <state width="1247" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599835983214" />
+    <state x="253" y="125" key="SettingsEditor" timestamp="1599194615373">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="253" y="125" key="SettingsEditor/0.0.1500.960@0.0.1500.960" timestamp="1599194615373" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1600024635378">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600024635378" />
+    <state width="682" height="523" key="XDebugger.FullValuePopup" timestamp="1600003521982">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="682" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1600003521982" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600024337830">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600024337830" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600024253139">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600024253139" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1599198185109">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599198185109" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1599992573809">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-3000.0.1500.980/0.0.1920.1040@0.0.1920.1040" timestamp="1599197471832" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1599992573809" />
+    <state x="790" y="310" key="svn.repositoryBrowser" timestamp="1600024324980">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="790" y="310" key="svn.repositoryBrowser/0.0.1920.1040@0.0.1920.1040" timestamp="1600024324980" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/DecisionTrees/gainDTree-Entropy.py</url>
+          <line>258</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MachineLearning$DTree_Entropy.coverage" NAME="DTree-Entropy Coverage Results" MODIFIED="1599827313970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DecisionTrees" />
+  </component>
+</project>
