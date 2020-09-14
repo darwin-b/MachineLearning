@@ -51,8 +51,3 @@ for file in range(0,files):
 
 
 
-print(resultsMatrix)
-
-
-
-
