@@ -6,8 +6,6 @@ import time
 # import multiprocessing
 
 
-data = pd.read_csv("./Data/train_c300_d100.csv", header=None)
-
 data1 = pd.DataFrame({"toothed":["True","True","True","False","True","True","True","True","True","False"],
                      "hair":["True","True","False","True","True","True","False","False","True","False"],
                      "breathes":["True","True","True","True","True","True","False","True","True","True"],
@@ -26,8 +24,12 @@ data2 = pd.DataFrame({"Outlook":["Sunny","Sunny","Overcast","Rain","Rain","Rain"
 data = pd.read_csv("./Data/train_c300_d100.csv", header=None)
 
 class node:
-    def __init__(self,feature, branchList):
+    def __init__(self,feature,depth,commonClass,splitSize,branchList):
         self.feature = feature
+        self.depth = depth
+        self.commonClass = commonClass
+        self.splitSize = splitSize
+
         self.branches = branchList
 
     def travel(self):
@@ -92,7 +94,7 @@ def Gain(data, feature, target):
     # print("Gain: ", gain)
     return gain,dataSplitList
 
-def dTree(data,target):
+def dTree(data,depth,target):
 
     datasetEntropy = entropy(data,target)
     if datasetEntropy == 0:
@@ -100,7 +102,7 @@ def dTree(data,target):
         for leaf in data[target]:
             value=leaf
             break
-        return node(value,{})
+        return node(value,depth+1,-1,-1,{})
 
     # print("Dataset Entropy : ", datasetEntropy)
 
@@ -130,9 +132,13 @@ def dTree(data,target):
     # print(" ")
     for split in splitData.keys():
         # print("split Value : ",split)
-        brlist[split] = dTree(splitData[split],target)
+        brlist[split] = dTree(splitData[split],depth+1,target)
 
-    return node(selectedFeature,brlist)
+    splitSize=data.loc[:, target].value_counts()
+    commonClass= splitSize.idxmax()
+
+    return node(selectedFeature,depth,commonClass,splitSize,brlist)
+
 
 def pred(x,root):
     if len(root.branches)==0:
@@ -164,9 +170,9 @@ testDataFiles  = ["test_c300_d100","test_c300_d1000","test_c300_d5000","test_c50
 validDataFiles = ["valid_c300_d100","valid_c300_d1000","valid_c300_d5000","valid_c500_d100","valid_c500_d1000","valid_c500_d5000","valid_c1000_d100","valid_c1000_d1000","valid_c1000_d5000","valid_c1500_d100","valid_c1500_d1000","valid_c1500_d5000","valid_c1800_d100","valid_c1800_d1000","valid_c1800_d5000"]
 trainDataFiles = ["train_c300_d100","train_c300_d1000","train_c300_d5000","train_c500_d100","train_c500_d1000","train_c500_d5000","train_c1000_d100","train_c1000_d1000","train_c1000_d5000","train_c1500_d100","train_c1500_d1000","train_c1500_d5000","train_c1800_d100","train_c1800_d1000","train_c1800_d5000"]
 
-testDataFiles  = [testDataFiles[6],testDataFiles[9],testDataFiles[12]]
-validDataFiles = [validDataFiles[6],validDataFiles[9],validDataFiles[12]]
-trainDataFiles = [trainDataFiles[6],trainDataFiles[9],trainDataFiles[12]]
+testDataFiles  = [testDataFiles[6]]
+validDataFiles = [validDataFiles[6]]
+trainDataFiles = [trainDataFiles[6]]
 
 # testDataFiles  = ["test_c300_d100","test_c300_d1000"]
 # validDataFiles = ["valid_c300_d100","valid_c300_d1000"]
@@ -184,6 +190,9 @@ fileAccuracy = {}
 fileTruePos = {}
 fileRunTime={}
 
+# temp = dTree(data2,0,"Play")
+
+
 for file in range(0,files):
 
     start = time.time()
@@ -194,7 +203,7 @@ for file in range(0,files):
 
 
     target = dataTrain.columns[-1]
-    fileModel[file]=dTree(dataTrain,target)
+    fileModel[file]=dTree(dataTrain,0,target)
 
     y_pred = {}
     for rowIndex in x_test.index:
@@ -213,50 +222,51 @@ for file in range(0,files):
     fileAccuracy[file]=count/fileSize
     end = time.time()
     fileRunTime[file]= end-start
+    print("Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
 
 
 print(fileAccuracy)
 
 
 
-
-f = open( 'Models-InfoGain.txt', 'w' )
-f.write( 'dict = ' + repr(fileModel) + '\n' )
-f.close()
-
-f = open( 'Pred-InfoGain.txt', 'w' )
-f.write( 'dict = ' + repr(filePred) + '\n' )
-f.close()
-
-f = open( 'Accuracy-InfoGain.txt', 'w' )
-f.write( 'dict = ' + repr(fileAccuracy) + '\n' )
-f.close()
-
-f = open( 'Runtimes-InfoGain.txt', 'w' )
-f.write( 'dict = ' + repr(fileRunTime) + '\n' )
-f.close()
-
-f = open( 'TruePositives-InfoGain.txt', 'w' )
-f.write( 'dict = ' + repr(fileTruePos) + '\n' )
-f.close()
-
-
-runtime=0
-for each in fileRunTime:
-    runtime = fileRunTime[each] +runtime
-print("Total Runtime",runtime)
-
-
-
-# num_cores = multiprocessing.cpu_count()
-# print("Cores available : ",num_cores)
-
-# Parallel(n_jobs=num_cores)(delayed(crawl.get_episode)(title) for title in episodes_list)
-
-# target1 = "species"
-# feature1 = "toothed"
 #
-# target2 = "Play"
-# feature2 = "Outlook"
-
-print(testDataFiles)
+# f = open( 'Models-InfoGain.txt', 'w' )
+# f.write( 'dict = ' + repr(fileModel) + '\n' )
+# f.close()
+#
+# f = open( 'Pred-InfoGain.txt', 'w' )
+# f.write( 'dict = ' + repr(filePred) + '\n' )
+# f.close()
+#
+# f = open( 'Accuracy-InfoGain.txt', 'w' )
+# f.write( 'dict = ' + repr(fileAccuracy) + '\n' )
+# f.close()
+#
+# f = open( 'Runtimes-InfoGain.txt', 'w' )
+# f.write( 'dict = ' + repr(fileRunTime) + '\n' )
+# f.close()
+#
+# f = open( 'TruePositives-InfoGain.txt', 'w' )
+# f.write( 'dict = ' + repr(fileTruePos) + '\n' )
+# f.close()
+#
+#
+# runtime=0
+# for each in fileRunTime:
+#     runtime = fileRunTime[each] +runtime
+# print("Total Runtime",runtime)
+#
+#
+#
+# # num_cores = multiprocessing.cpu_count()
+# # print("Cores available : ",num_cores)
+#
+# # Parallel(n_jobs=num_cores)(delayed(crawl.get_episode)(title) for title in episodes_list)
+#
+# # target1 = "species"
+# # feature1 = "toothed"
+# #
+# # target2 = "Play"
+# # feature2 = "Outlook"
+#
+# print(testDataFiles)
