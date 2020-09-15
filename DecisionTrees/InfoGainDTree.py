@@ -102,7 +102,7 @@ def dTree(data,depth,target):
         for leaf in data[target]:
             value=leaf
             break
-        return node(value,depth+1,-1,-1,{})
+        return node(value,depth,-1,-1,{})
 
     # print("Dataset Entropy : ", datasetEntropy)
 
