@@ -50,4 +50,10 @@ for file in range(0,files):
     resultsMatrix[testDataFiles[file]]= metrics.accuracy_score(y_test,y_pred)
 
 
+f = open( 'ResultsMatrix-RandomForests.txt', 'w' )
+f.write( 'dict = ' + repr(resultsMatrix) + '\n' )
+f.close()
 
+print("----- Accuracies ----- ")
+for result in resultsMatrix:
+    print(result," : ",resultsMatrix[result])
