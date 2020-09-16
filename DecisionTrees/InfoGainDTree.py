@@ -1,27 +1,11 @@
 import numpy as np
 import pandas as pd
 import time
+import copy
 
 # from joblib import Parallel, delayed
 # import multiprocessing
 
-
-data1 = pd.DataFrame({"toothed":["True","True","True","False","True","True","True","True","True","False"],
-                     "hair":["True","True","False","True","True","True","False","False","True","False"],
-                     "breathes":["True","True","True","True","True","True","False","True","True","True"],
-                     "legs":["True","True","False","True","True","True","False","False","True","True"],
-                     "species":["Mammal","Mammal","Reptile","Mammal","Mammal","Mammal","Reptile","Reptile","Mammal","Reptile"]},
-                    columns=["toothed","hair","breathes","legs","species"])
-
-data2 = pd.DataFrame({"Outlook":["Sunny","Sunny","Overcast","Rain","Rain","Rain","Overcast","Sunny","Sunny","Rain","Sunny","Overcast","Overcast","Rain"],
-                     "Temp":["Hot","Hot","Hot","Mild","Cool","Cool","Cool","Mild","Cool","Mild","Mild","Mild","Hot","Mild"],
-                     "Humidity":["High","High","High","High","Normal","Normal","Normal","High","Normal","Normal","Normal","High","Normal","High"],
-                     "Wind":["Weak","Strong","Weak","Weak","Weak","Strong","Strong","Weak","Weak","Weak","Strong","Strong","Weak","Strong"],
-                     "Play":["No","No","Yes","Yes","Yes","No","Yes","No","Yes","Yes","Yes","Yes","Yes","No"]},
-                    columns=["Outlook","Temp","Humidity","Wind","Play"])
-
-
-data = pd.read_csv("./Data/train_c300_d100.csv", header=None)
 
 class node:
     def __init__(self,feature,depth,commonClass,splitSize,branchList):
@@ -37,6 +21,13 @@ class node:
         for branch in self.branches:
             self.branches[branch].travel()
         # print("level")
+
+    def depthPrune(self,maxLimit):
+        if self.depth==maxLimit:
+            self.feature=self.commonClass
+            self.branches={}
+        for branch in self.branches:
+            self.branches[branch].depthPrune(maxLimit)
 
 
 
@@ -164,15 +155,37 @@ def data(fileName):
 
     return x,y,data
 
+def accuracyMatrix(x_val,y_val,model):
+    y_pred = {}
+    dataSize = x_val.shape[0]
+    for rowIndex in x_val.index:
+        row = x_val.iloc[rowIndex, :]
+        y_pred[rowIndex] = pred(row, model)
+    # filePred[file]=y_pred
+
+    count = 0
+    truePos = []
+    for each in y_test.keys():
+        # print(each)
+        if y_test[each] == y_pred[each]:
+            truePos.append(each)
+            count = count + 1
+    # fileTruePos[file]=truePos
+    accuracy=count/dataSize
+    # fileAccuracy[file]=count/fileSize
+
+    return accuracy,y_pred,truePos
+    print("Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
+
 # Note: for feature "outlook" & value "outcast" the log values are calculated correctly despite of invalid of log(0) value
 
 testDataFiles  = ["test_c300_d100","test_c300_d1000","test_c300_d5000","test_c500_d100","test_c500_d1000","test_c500_d5000","test_c1000_d100","test_c1000_d1000","test_c1000_d5000","test_c1500_d100","test_c1500_d1000","test_c1500_d5000","test_c1800_d100","test_c1800_d1000","test_c1800_d5000"]
 validDataFiles = ["valid_c300_d100","valid_c300_d1000","valid_c300_d5000","valid_c500_d100","valid_c500_d1000","valid_c500_d5000","valid_c1000_d100","valid_c1000_d1000","valid_c1000_d5000","valid_c1500_d100","valid_c1500_d1000","valid_c1500_d5000","valid_c1800_d100","valid_c1800_d1000","valid_c1800_d5000"]
 trainDataFiles = ["train_c300_d100","train_c300_d1000","train_c300_d5000","train_c500_d100","train_c500_d1000","train_c500_d5000","train_c1000_d100","train_c1000_d1000","train_c1000_d5000","train_c1500_d100","train_c1500_d1000","train_c1500_d5000","train_c1800_d100","train_c1800_d1000","train_c1800_d5000"]
 
-testDataFiles  = [testDataFiles[6]]
-validDataFiles = [validDataFiles[6]]
-trainDataFiles = [trainDataFiles[6]]
+testDataFiles  = [testDataFiles[6],testDataFiles[12]]
+validDataFiles = [validDataFiles[6],validDataFiles[12]]
+trainDataFiles = [trainDataFiles[6],trainDataFiles[12]]
 
 # testDataFiles  = ["test_c300_d100","test_c300_d1000"]
 # validDataFiles = ["valid_c300_d100","valid_c300_d1000"]
@@ -181,8 +194,6 @@ trainDataFiles = [trainDataFiles[6]]
 # Count number of files
 files = testDataFiles.__len__()
 
-resultsMatrix={}
-trainedModelsList=[]
 
 filePred = {}
 fileModel = {}
@@ -192,44 +203,54 @@ fileRunTime={}
 
 # temp = dTree(data2,0,"Play")
 
-
+# DTree resultsMatrix with Entropy as impurity heuristic
 for file in range(0,files):
 
     start = time.time()
     x_train,y_train,dataTrain = data(trainDataFiles[file])
     x_test,y_test,dataTest = data(testDataFiles[file])
 
-    fileSize=dataTrain.shape[0]
-
+    # fileSize=dataTrain.shape[0]
 
     target = dataTrain.columns[-1]
     fileModel[file]=dTree(dataTrain,0,target)
 
-    y_pred = {}
-    for rowIndex in x_test.index:
-        row = x_test.iloc[rowIndex, :]
-        y_pred[rowIndex] = pred(row, fileModel[file])
-    filePred[file]=y_pred
-
-    count = 0
-    truePos = []
-    for each in y_test.keys():
-        # print(each)
-        if y_test[each] == y_pred[each]:
-            truePos.append(each)
-            count = count + 1
-    fileTruePos[file]=truePos
-    fileAccuracy[file]=count/fileSize
+    # Calculate run time
     end = time.time()
     fileRunTime[file]= end-start
-    print("Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
+
+    fileAccuracy[file], filePred[file], fileTruePos[file] = accuracyMatrix(x_test,y_test,fileModel[file])
+    print(testDataFiles[file]," ==> ","Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
 
 
-print(fileAccuracy)
+
+# DTree resultsMatrix with Entropy as impurity heuristic and depth based pruning
+print("")
+print("")
+print("Depth based pruning with Entropy as heuristic")
+for file in range(0,files):
+    # not yet working/ using valid data files : to be used in reduced error pruning
+    x_valid,y_valid,dataValid = data(validDataFiles[file])
+    x_test,y_test,dataTest = data(testDataFiles[file])
+    print(testDataFiles[file])
+    for depth in range(20,0,-5):
+        tuningModel=copy.deepcopy(fileModel[file])
+        tuningModel.depthPrune(depth)
+
+        acc,pre,pos=accuracyMatrix(x_test,y_test,tuningModel)
+        print("depth :",depth,"accuracy :",acc)
 
 
-
+# dep =5
+# tuningModel=copy.deepcopy(fileModel[0])
+# tuningModel.depthPrune(dep)
 #
+# acc, pre, pos = accuracyMatrix(x_test, y_test, fileModel[0])
+# print("depth :", dep,"accuracy :", acc)
+#
+# acc, pre, pos = accuracyMatrix(x_test, y_test, tuningModel)
+# print("depth :", dep,"accuracy :", acc)
+
 # f = open( 'Models-InfoGain.txt', 'w' )
 # f.write( 'dict = ' + repr(fileModel) + '\n' )
 # f.close()
@@ -262,11 +283,3 @@ print(fileAccuracy)
 # # print("Cores available : ",num_cores)
 #
 # # Parallel(n_jobs=num_cores)(delayed(crawl.get_episode)(title) for title in episodes_list)
-#
-# # target1 = "species"
-# # feature1 = "toothed"
-# #
-# # target2 = "Play"
-# # feature2 = "Outlook"
-#
-# print(testDataFiles)
