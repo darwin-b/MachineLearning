@@ -1,0 +1,76 @@
+Depth based pruning with Variance as heuristic
+test_c300_d100
+depth : 20 accuracy : 0.575
+depth : 15 accuracy : 0.575
+depth : 10 accuracy : 0.575
+depth : 5 accuracy : 0.325
+test_c300_d1000
+depth : 20 accuracy : 0.6495
+depth : 15 accuracy : 0.6495
+depth : 10 accuracy : 0.627
+depth : 5 accuracy : 0.619
+test_c300_d5000
+depth : 20 accuracy : 0.7292
+depth : 15 accuracy : 0.7292
+depth : 10 accuracy : 0.5918
+depth : 5 accuracy : 0.6476
+test_c500_d100
+depth : 20 accuracy : 0.605
+depth : 15 accuracy : 0.605
+depth : 10 accuracy : 0.605
+depth : 5 accuracy : 0.335
+test_c500_d1000
+depth : 20 accuracy : 0.6675
+depth : 15 accuracy : 0.6675
+depth : 10 accuracy : 0.651
+depth : 5 accuracy : 0.6385
+test_c500_d5000
+depth : 20 accuracy : 0.7343
+depth : 15 accuracy : 0.7343
+depth : 10 accuracy : 0.5592
+depth : 5 accuracy : 0.6554
+test_c1000_d100
+depth : 20 accuracy : 0.69
+depth : 15 accuracy : 0.69
+depth : 10 accuracy : 0.69
+depth : 5 accuracy : 0.44
+test_c1000_d1000
+depth : 20 accuracy : 0.7965
+depth : 15 accuracy : 0.7965
+depth : 10 accuracy : 0.784
+depth : 5 accuracy : 0.737
+test_c1000_d5000
+depth : 20 accuracy : 0.8344
+depth : 15 accuracy : 0.8344
+depth : 10 accuracy : 0.6707
+depth : 5 accuracy : 0.7671
+test_c1500_d100
+depth : 20 accuracy : 0.83
+depth : 15 accuracy : 0.83
+depth : 10 accuracy : 0.83
+depth : 5 accuracy : 0.395
+test_c1500_d1000
+depth : 20 accuracy : 0.89
+depth : 15 accuracy : 0.89
+depth : 10 accuracy : 0.885
+depth : 5 accuracy : 0.7815
+test_c1500_d5000
+depth : 20 accuracy : 0.9398
+depth : 15 accuracy : 0.9398
+depth : 10 accuracy : 0.5779
+depth : 5 accuracy : 0.8044
+test_c1800_d100
+depth : 20 accuracy : 0.91
+depth : 15 accuracy : 0.91
+depth : 10 accuracy : 0.91
+depth : 5 accuracy : 0.405
+test_c1800_d1000
+depth : 20 accuracy : 0.958
+depth : 15 accuracy : 0.958
+depth : 10 accuracy : 0.958
+depth : 5 accuracy : 0.912
+test_c1800_d5000
+depth : 20 accuracy : 0.9766
+depth : 15 accuracy : 0.9766
+depth : 10 accuracy : 0.9494
+depth : 5 accuracy : 0.9161
