@@ -58,3 +58,11 @@ print(feat_count)
 
 commonClass= data2.loc[:, target2].value_counts().idxmax()
 commonClass= data2.loc[:, target2].value_counts()
+
+
+print(data[target].value_counts())
+
+child_label="Yes"
+label = data2[data2.columns[-1]].value_counts()
+
+print(label[child_label])
