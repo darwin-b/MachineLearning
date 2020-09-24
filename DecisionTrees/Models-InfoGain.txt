@@ -1,1 +1,1 @@
-dict = {0: <__main__.node object at 0x0000020670D494C0>, 1: <__main__.node object at 0x0000020670FEC9D0>, 2: <__main__.node object at 0x000002067201B550>}
+dict = {0: <__main__.node object at 0x000001BCDF524AF0>, 1: <__main__.node object at 0x000001BCDF8D1F70>}
