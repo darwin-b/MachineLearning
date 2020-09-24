@@ -29,14 +29,12 @@ class node:
         for branch in self.branches:
             self.branches[branch].depthPrune(maxLimit)
 
-
-
-def entropy(data, target):
+def entropy(target):
     # Get frequency of target classes in target column in pd frame
-    targetColumn = data.loc[:, target].value_counts()
+    targetColumn = target.value_counts()
 
     # Calculate entropy of data set
-    dataSize = data.shape[0]
+    dataSize = len(target)
     entropy = 0
     for target in targetColumn:
         p = target / dataSize
@@ -72,7 +70,7 @@ def Gain(data, feature, target):
         # print(dataPartition)
 
         # Determine individual featurevalue entropy
-        featureEntropy = entropy(dataPartition,target)
+        featureEntropy = entropy(dataPartition[target])
         gain = partitionProbabilty*featureEntropy + gain
 
         # print("Feature Entropy - ",featureValue,featureEntropy)
@@ -87,7 +85,7 @@ def Gain(data, feature, target):
 
 def dTree(data,depth,target):
 
-    datasetEntropy = entropy(data,target)
+    datasetEntropy = entropy(data[target])
     if datasetEntropy == 0:
         # print("Entropy is 0 & No split required")
         for leaf in data[target]:
@@ -175,7 +173,7 @@ def accuracyMatrix(x_val,y_val,model):
     # fileAccuracy[file]=count/fileSize
 
     return accuracy,y_pred,truePos
-    print("Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
+    # print("Accuracy : ",fileAccuracy[file]," Runtime : ",fileRunTime[file])
 
 # Note: for feature "outlook" & value "outcast" the log values are calculated correctly despite of invalid of log(0) value
 
@@ -183,9 +181,9 @@ testDataFiles  = ["test_c300_d100","test_c300_d1000","test_c300_d5000","test_c50
 validDataFiles = ["valid_c300_d100","valid_c300_d1000","valid_c300_d5000","valid_c500_d100","valid_c500_d1000","valid_c500_d5000","valid_c1000_d100","valid_c1000_d1000","valid_c1000_d5000","valid_c1500_d100","valid_c1500_d1000","valid_c1500_d5000","valid_c1800_d100","valid_c1800_d1000","valid_c1800_d5000"]
 trainDataFiles = ["train_c300_d100","train_c300_d1000","train_c300_d5000","train_c500_d100","train_c500_d1000","train_c500_d5000","train_c1000_d100","train_c1000_d1000","train_c1000_d5000","train_c1500_d100","train_c1500_d1000","train_c1500_d5000","train_c1800_d100","train_c1800_d1000","train_c1800_d5000"]
 
-testDataFiles  = [testDataFiles[6],testDataFiles[12]]
-validDataFiles = [validDataFiles[6],validDataFiles[12]]
-trainDataFiles = [trainDataFiles[6],trainDataFiles[12]]
+# testDataFiles  = [testDataFiles[5],testDataFiles[7]]
+# validDataFiles = [validDataFiles[5],validDataFiles[7]]
+# trainDataFiles = [trainDataFiles[5],trainDataFiles[7]]
 
 # testDataFiles  = ["test_c300_d100","test_c300_d1000"]
 # validDataFiles = ["valid_c300_d100","valid_c300_d1000"]
@@ -241,45 +239,69 @@ for file in range(0,files):
         print("depth :",depth,"accuracy :",acc)
 
 
-# dep =5
-# tuningModel=copy.deepcopy(fileModel[0])
-# tuningModel.depthPrune(dep)
-#
-# acc, pre, pos = accuracyMatrix(x_test, y_test, fileModel[0])
-# print("depth :", dep,"accuracy :", acc)
-#
-# acc, pre, pos = accuracyMatrix(x_test, y_test, tuningModel)
-# print("depth :", dep,"accuracy :", acc)
 
-# f = open( 'Models-InfoGain.txt', 'w' )
-# f.write( 'dict = ' + repr(fileModel) + '\n' )
-# f.close()
+f = open( 'Models-InfoGain.txt', 'w' )
+f.write( 'dict = ' + repr(fileModel) + '\n' )
+f.close()
+
+f = open( 'Pred-InfoGain.txt', 'w' )
+f.write( 'dict = ' + repr(filePred) + '\n' )
+f.close()
+
+f = open( 'Accuracy-InfoGain.txt', 'w' )
+f.write( 'dict = ' + repr(fileAccuracy) + '\n' )
+f.close()
+
+f = open( 'Runtimes-InfoGain.txt', 'w' )
+f.write( 'dict = ' + repr(fileRunTime) + '\n' )
+f.close()
+
+f = open( 'TruePositives-InfoGain.txt', 'w' )
+f.write( 'dict = ' + repr(fileTruePos) + '\n' )
+f.close()
+
+
+runtime=0
+for each in fileRunTime:
+    runtime = fileRunTime[each] +runtime
+print("Total Runtime : ",runtime)
+
+# num_cores = multiprocessing.cpu_count()
+# print("Cores available : ",num_cores)
+
+# Parallel(n_jobs=num_cores)(delayed(crawl.get_episode)(title) for title in episodes_list)
+
+
+# -----------------------------------------------Work In Progress : Reduced Error Pruning----------------------------------------------------------------
+
+# def reducedErrorPrune(validData, node):
+#     # check if node has all childs as leaf nodes and not a tree
+#     allChildLeaf = False
+#     if len(node.branches) != 0:
+#         allChildLeaf = True
+#         for child in node.branches:
+#             if len(node.branches[child].branches) != 0:
+#                 trimData = validData[validData[node.feature] == child]
+#                 reducedErrorPrune(trimData, node.branches[child])
+#                 if len(node.branches[child].branches) != 0:
+#                     allChildLeaf = False
+#                     return
+#         if allChildLeaf == True:
+#             pred = {}
+#             y_column = validData[validData.columns[-1]].value_counts()
+#             cmnClassPred = y_column[node.commonClass]
+#             print("common class count: ", cmnClassPred)
+#             count = 0
+#             for child in node.branches:
+#                 classData = validData[validData[node.feature] == child]
+#                 y_column = classData[validData.columns[-1]].value_counts()
+#                 child_label = node.branches[child].feature
+#                 count = count + y_column[child_label]
+#             print("child classified count :", count)
 #
-# f = open( 'Pred-InfoGain.txt', 'w' )
-# f.write( 'dict = ' + repr(filePred) + '\n' )
-# f.close()
-#
-# f = open( 'Accuracy-InfoGain.txt', 'w' )
-# f.write( 'dict = ' + repr(fileAccuracy) + '\n' )
-# f.close()
-#
-# f = open( 'Runtimes-InfoGain.txt', 'w' )
-# f.write( 'dict = ' + repr(fileRunTime) + '\n' )
-# f.close()
-#
-# f = open( 'TruePositives-InfoGain.txt', 'w' )
-# f.write( 'dict = ' + repr(fileTruePos) + '\n' )
-# f.close()
+#             if cmnClassPred >= count:
+#                 node.branches = {}
+#                 node.feature = node.commonClass
 #
 #
-# runtime=0
-# for each in fileRunTime:
-#     runtime = fileRunTime[each] +runtime
-# print("Total Runtime",runtime)
-#
-#
-#
-# # num_cores = multiprocessing.cpu_count()
-# # print("Cores available : ",num_cores)
-#
-# # Parallel(n_jobs=num_cores)(delayed(crawl.get_episode)(title) for title in episodes_list)
+# reducedErrorPrune(dataValid,fileModel[1])
