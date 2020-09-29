@@ -5,58 +5,20 @@ import numpy as np
 import nltk
 import re
 from nltk.tokenize import word_tokenize
+import time
 
 nltk.download('punkt')
 
 data_path = "C:\\Users\\darwi\\OneDrive - " \
             "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data"
-
 cwd = os.getcwd()
 
-
-
 data = []
-
 
 def read(file_path):
     with open(file_path, encoding='cp437') as file:
         text = file.read()
     return text
-
-
-# Reading Datasets
-for dataset in os.listdir(data_path):
-    train_path = data_path + os.path.sep + dataset + os.path.sep + "train" + os.path.sep
-    test_path = data_path + os.path.sep + dataset + os.path.sep + "test" + os.path.sep
-
-    train_text = {}
-    # test_text = {}
-
-    #  Text initialization
-    train_text["ham"] = ""
-    train_text["spam"] = ""
-    # test_text["ham"] = ""
-    # test_text["spam"] = ""
-
-    for doc in os.listdir(train_path + "ham"):
-        train_text["ham"] = train_text["ham"] + read(train_path + "ham" + os.path.sep + doc)
-
-    for doc in os.listdir(train_path + "spam"):
-        train_text["spam"] = train_text["spam"] + read(train_path + "spam" + os.path.sep + doc)
-
-    # for doc in os.listdir(test_path + "ham"):
-    #     test_text["ham"] = test_text["ham"] + read(test_path + "ham" + os.path.sep + doc)
-    #
-    # for doc in os.listdir(test_path + "spam"):
-    #     test_text["spam"] = test_text["spam"] + read(test_path + "spam" + os.path.sep + doc)
-
-    data.append(train_text)
-    # data.append(test_text)
-
-
-# WIP: Use below file to test processing text
-# text1 = (read(data_path+os.path.sep+"enron1\\test"+os.path.sep+"spam"+os.path.sep+"4566.2005-05-24.GP.spam.txt"))
-# text2 = (read(data_path+os.path.sep+"enron1\\test"+os.path.sep+"spam"+os.path.sep+"0046.2003-12-20.GP.spam.txt"))
 
 
 def bag_words(text_data, bag):
@@ -77,18 +39,6 @@ def bag_words(text_data, bag):
     return bag
 
     # for word in clean_text:
-
-
-# "Hello how are you. hello are good"
-
-bag_train1_ham = bag_words(data[0]["ham"], {})
-bag_train1_spam = bag_words(data[0]["spam"], {})
-
-bag_train2_ham = bag_words(data[1]["ham"], {})
-bag_train2_spam = bag_words(data[1]["spam"], {})
-
-bag_train3_ham = bag_words(data[2]["ham"], {})
-bag_train3_spam = bag_words(data[2]["spam"], {})
 
 
 def conditional_prob(bag_ham, bag_spam, word, class_bag):
@@ -116,16 +66,55 @@ def conditional_prob(bag_ham, bag_spam, word, class_bag):
             return 1 / (bag_spam_length + vocab_size)
 
 
+def doc_probability(testFile_path,class_prob,bag_ham,bag_spam,class_label):
+
+    # ham_count = os.listdir(testFile_path).__len__()
+    # spam_count = os.listdir(testFile_path_spam).__len__()
+    #
+    # if class_label=="ham":
+    #     prob = np.log10(ham_count / (ham_count + spam_count))
+    # else:
+    #     prob = np.log10(spam_count / (ham_count + spam_count))
+
+    dp = {}
+    pred_prob = []
+    for file in os.listdir(testFile_path):
+        bag_test = bag_words(read(testFile_path+os.path.sep+ file), {})
+        prob=class_prob
+        for word in bag_test:
+            if (class_label, word) not in dp:
+                dp[(class_label, word)] = np.log10(conditional_prob(bag_ham, bag_spam, word, class_label))
+            cp = dp[(class_label, word)]
+            prob = prob + (bag_test[word]*cp)
+
+        pred_prob.append(prob)
+
+    return pred_prob,dp
+
+
+def accuracy(true, false, class_label):
+    count = 0
+    mislabel = []
+    for x in range(len(true)):
+        if true[x] > false[x]:
+            count += 1
+        else:
+            mislabel.append(x)
+
+    acc = count / len(true)
+
+    if (class_label == "ham"):
+        print("ham is ham : ", count, "/", len(true))
+    else:
+        print("spam is spam : ", count, "/", len(true))
+    print(" acc : ", acc)
+
+    return acc, mislabel
+
+
 # bag1 = bag_words(" Chinese Beijing Chinese Chinese Chinese Shanghai Chinese Macao",{})
 # bag2 = bag_words("Tokyo Japan Chinese",{})
 
-
-#dp={}
-# dp[("ham","chinese")]=conditional_prob(bag1,bag2,"chinese","ham")
-#
-# if ("ham","tokyo") in dp:
-#     print("Hi")
-#
 # c1=conditional_prob(bag1,bag2,"chinese","ham")
 # c2=conditional_prob(bag1,bag2,"chinese","spam")
 # c3=conditional_prob(bag1,bag2,"japan","ham")
@@ -133,85 +122,47 @@ def conditional_prob(bag_ham, bag_spam, word, class_bag):
 
 # conditional_prob(bag_train1_ham,bag_train1_spam,"re","ham")
 
+# ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
+data_path = "C:\\Users\\darwi\\OneDrive - " \
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron4"
 
-test_path_ham = data_path + os.path.sep + "hw2" + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
+test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
+test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
+train_path_ham = data_path + os.path.sep + "train" + os.path.sep + "ham" + os.path.sep
+train_path_spam = data_path + os.path.sep + "train" + os.path.sep + "spam" + os.path.sep
+
+# --------------make bag of words from training data-------------------------#
+bag_ham={}
+for file in os.listdir(train_path_ham):
+    bag_ham= bag_words(read(train_path_ham + file),bag_ham)
+
+bag_spam = {}
+for file in os.listdir(train_path_spam):
+    bag_spam = bag_words(read(train_path_spam + file), bag_spam)
+
 ham_count = os.listdir(test_path_ham).__len__()
-
-test_path_spam = data_path + os.path.sep + "hw2" + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
 spam_count = os.listdir(test_path_spam).__len__()
 
-dp = {}
-pred_prob_ham = []
-for file in os.listdir(test_path_ham):
-    bag_test_ham = bag_words(read(test_path_ham + file), {})
-    prob = np.log10(ham_count / (ham_count + spam_count))
-    for word in bag_test_ham:
-        if ("ham", word) not in dp:
-            dp[("ham", word)] = np.log10(conditional_prob(bag_train3_ham, bag_train3_spam, word, "ham"))
-        cp = dp[("ham", word)]
-        prob = prob + (cp * bag_test_ham[word])
 
-    pred_prob_ham.append(prob)
+prob_ham = np.log10(ham_count / (ham_count + spam_count))
+prob_spam = np.log10(spam_count / (ham_count + spam_count))
 
-dp2 = {}
-pred_prob_spam = []
-for file in os.listdir(test_path_ham):
-    bag_test_spam = bag_words(read(test_path_ham + file), {})
-    prob = np.log10(spam_count / (ham_count + spam_count))
-    for word in bag_test_spam:
-        if ("spam", word) not in dp2:
-            dp2[("spam", word)] = np.log10(conditional_prob(bag_train3_spam, bag_train3_spam, word, "spam"))
-        cp = dp2[("spam", word)]
-        prob = prob + (cp * bag_test_spam[word])
+# -----------------------------Results Matrix------------------------------------
+ham_true,cp_hamtrue = doc_probability(test_path_ham, prob_ham, bag_ham, bag_spam, "ham")
+ham_false,cp_hamfalse = doc_probability(test_path_ham, prob_ham, bag_ham, bag_spam, "spam")
 
-    pred_prob_spam.append(prob)
+spam_true,cp_spamtrue = doc_probability(test_path_spam, prob_spam, bag_ham, bag_spam, "spam")
+spam_false,cp_spamfalse = doc_probability(test_path_spam, prob_spam, bag_ham, bag_spam, "ham")
 
-# caluclate accuracy & prediction
+acc_ham,mislabel_ham  = accuracy(ham_true,ham_false,"ham")
+acc_spam,mislabel_spam = accuracy(spam_true,spam_false,"spam")
 
-acc=0
-for x in range(len(pred_prob_ham)):
-    if pred_prob_ham[x] > pred_prob_spam[x]:
-        acc +=1
-    else:
-        print(x)
+acc_total = (acc_ham*ham_count+acc_spam*spam_count)/(ham_count+spam_count)
+print("Total accuracy : ",acc_total)
 
-
-print("Acc : ",acc/len(pred_prob_ham)," Count : ",acc)
-# -------------------------test_spam--------------------------
-dp = {}
-pred_prob_ham = []
-for file in os.listdir(test_path_spam):
-    bag_test_ham = bag_words(read(test_path_spam + file), {})
-    prob = np.log10(ham_count / (ham_count + spam_count))
-    for word in bag_test_ham:
-        if ("ham", word) not in dp:
-            dp[("ham", word)] = np.log10(conditional_prob(bag_train3_ham, bag_train3_spam, word, "ham"))
-        cp = dp[("ham", word)]
-        prob = prob + (cp * bag_test_ham[word])
-
-    pred_prob_ham.append(prob)
-
-dp2 = {}
-pred_prob_spam = []
-for file in os.listdir(test_path_spam):
-    bag_test_spam = bag_words(read(test_path_spam + file), {})
-    prob = np.log10(spam_count / (ham_count + spam_count))
-    for word in bag_test_spam:
-        if ("spam", word) not in dp2:
-            dp2[("spam", word)] = np.log10(conditional_prob(bag_train3_spam, bag_train3_spam, word, "spam"))
-        cp = dp2[("spam", word)]
-        prob = prob + (cp * bag_test_spam[word])
-
-    pred_prob_spam.append(prob)
-
-# caluclate accuracy & prediction
-
-acc=0
-for x in range(len(pred_prob_ham)):
-    if pred_prob_ham[x] > pred_prob_spam[x]:
-        acc +=1
-    else:
-        print(x)
-
-
-print("Acc : ",acc/len(pred_prob_ham)," Count : ",acc)
+file_name="resultsMatrix_"+data_path.split(os.path.sep)[-1]+".txt"
+with open(file_name,'w') as file:
+    text = "ham is ham : "+str(acc_ham)+"\n"+"spam is spam : "+str(acc_spam)+"\n"+"Total accuracy : "+str(acc_total)+"\n"
+    text = text+" mislabel ham file indices : "+repr(mislabel_ham)+"\n"+" mislabel spam file indices : "+repr(mislabel_spam)+"\n\n"
+    text = text +"Bag of Ham :\n"+ repr(bag_ham)+"\n\n"+"Bag of Spam :\n"+ repr(bag_spam)
+    file.write(text)
