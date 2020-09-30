@@ -68,14 +68,6 @@ def conditional_prob(bag_ham, bag_spam, word, class_bag):
 
 def doc_probability(testFile_path,class_prob,bag_ham,bag_spam,class_label):
 
-    # ham_count = os.listdir(testFile_path).__len__()
-    # spam_count = os.listdir(testFile_path_spam).__len__()
-    #
-    # if class_label=="ham":
-    #     prob = np.log10(ham_count / (ham_count + spam_count))
-    # else:
-    #     prob = np.log10(spam_count / (ham_count + spam_count))
-
     dp = {}
     pred_prob = []
     for file in os.listdir(testFile_path):
@@ -103,7 +95,7 @@ def accuracy(true, false, class_label):
 
     acc = count / len(true)
 
-    if (class_label == "ham"):
+    if class_label == "ham":
         print("ham is ham : ", count, "/", len(true))
     else:
         print("spam is spam : ", count, "/", len(true))
@@ -124,7 +116,7 @@ def accuracy(true, false, class_label):
 
 # ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
 data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron4"
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron1"
 
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
@@ -140,9 +132,11 @@ bag_spam = {}
 for file in os.listdir(train_path_spam):
     bag_spam = bag_words(read(train_path_spam + file), bag_spam)
 
-ham_count = os.listdir(test_path_ham).__len__()
-spam_count = os.listdir(test_path_spam).__len__()
+ham_count = os.listdir(train_path_ham).__len__()
+spam_count = os.listdir(train_path_spam).__len__()
 
+test_ham_count = os.listdir(test_path_ham).__len__()
+test_spam_count = os.listdir(test_path_spam).__len__()
 
 prob_ham = np.log10(ham_count / (ham_count + spam_count))
 prob_spam = np.log10(spam_count / (ham_count + spam_count))
@@ -157,7 +151,7 @@ spam_false,cp_spamfalse = doc_probability(test_path_spam, prob_spam, bag_ham, ba
 acc_ham,mislabel_ham  = accuracy(ham_true,ham_false,"ham")
 acc_spam,mislabel_spam = accuracy(spam_true,spam_false,"spam")
 
-acc_total = (acc_ham*ham_count+acc_spam*spam_count)/(ham_count+spam_count)
+acc_total = (acc_ham*test_ham_count+acc_spam*test_spam_count)/(test_ham_count+test_spam_count)
 print("Total accuracy : ",acc_total)
 
 file_name="resultsMatrix_"+data_path.split(os.path.sep)[-1]+".txt"
