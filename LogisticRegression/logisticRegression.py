@@ -6,7 +6,7 @@ import nltk
 import re
 from nltk.tokenize import word_tokenize
 import time
-
+import random
 
 nltk.download('punkt')
 data_path = "C:\\Users\\darwi\\OneDrive - " \
@@ -57,6 +57,8 @@ bag={}
 for file in os.listdir(train_path_ham):
     bag= bag_words(read(train_path_ham + file),bag)
 
+count_features = bag.__len__()
+
 # bag_spam = {}
 for file in os.listdir(train_path_spam):
     bag = bag_words(read(train_path_spam + file), bag)
@@ -64,7 +66,10 @@ for file in os.listdir(train_path_spam):
 hamFiles_count = os.listdir(train_path_ham).__len__()
 spamFiles_count = os.listdir(train_path_spam).__len__()
 
-data_X = np.zeros((hamFiles_count+spamFiles_count,bag.__len__()))
+data_X = np.zeros((hamFiles_count+spamFiles_count,count_features+1))
+data_X[0:hamFiles_count,-1]=1
+data_X[hamFiles_count:,-1]=0
+
 data_y = np.ones((hamFiles_count+spamFiles_count,1))
 data_y[hamFiles_count:,0]=0
 
@@ -97,9 +102,19 @@ for file in os.listdir(train_path_spam):
 
     index_file +=1
 
+# -------------------- Splitting Data : 70-30 Ratio------------------------- #
+np.random.shuffle(data_X)
+splitValue= int((hamFiles_count+spamFiles_count)*0.7)
+train_X,valid_X = data_X[:splitValue,:], data_X[splitValue:,:]
+train_y,valid_y = data_X[:splitValue,-1], data_X[splitValue:,-1]
+
 # -----------------Data engineering done-------------------------------------#
 
+# with open("baggedData.txt",'w') as fileWriter:
+#     fileWriter.write(repr(data_X))
 
 
-j=sigmoid(np.array([1,2,3]))
-print(j)
+weights = np.zeros(count_features)
+learning_rate = 0.1
+l_lambda = 0.01
+
