@@ -43,6 +43,9 @@ def bag_words(text_data, bag):
 def sigmoid(x):
     return 1/(1+np.exp(-1*x))
 
+def sigmoid2(x):
+    return np.exp(-1 * x) / (1 + np.exp(-1 * x))
+
 
 
 data_path = "C:\\Users\\darwi\\OneDrive - " \
@@ -57,11 +60,11 @@ bag={}
 for file in os.listdir(train_path_ham):
     bag= bag_words(read(train_path_ham + file),bag)
 
-count_features = bag.__len__()
-
 # bag_spam = {}
 for file in os.listdir(train_path_spam):
     bag = bag_words(read(train_path_spam + file), bag)
+
+count_features = bag.__len__()
 
 hamFiles_count = os.listdir(train_path_ham).__len__()
 spamFiles_count = os.listdir(train_path_spam).__len__()
@@ -112,9 +115,132 @@ train_y,valid_y = data_X[:splitValue,-1], data_X[splitValue:,-1]
 
 # with open("baggedData.txt",'w') as fileWriter:
 #     fileWriter.write(repr(data_X))
-
-
+# note : dimension of train_x is count_features+1. [last column is y values]
+print("------------------------Data Engineering done------------------------")
 weights = np.zeros(count_features)
-learning_rate = 0.1
-l_lambda = 0.01
+learning_rate = 0.5
+l_lambda = 0.1
+
+# llbm = [x for x in range(1,0.5)]
+
+for iterations in range(200):
+    weighted_features = weights*train_X[:,:-1]
+    linear_score =np.sum(weighted_features,axis=1)
+    diff_matrix=train_y-sigmoid(linear_score)
+    errorWeighted_features= np.multiply(diff_matrix,np.transpose(train_X[:,:-1]))
+    weights = weights + learning_rate*np.sum(errorWeighted_features,axis=1) - learning_rate*l_lambda*weights
+
+
+
+#---------validation-----------#
+valid_weighted_features = weights*valid_X[:,:-1]
+valid_linear_score =np.sum(valid_weighted_features,axis=1)
+valid_ham_predict=sigmoid(valid_linear_score)
+
+count=0
+count2=0
+true_ham=0
+true_spam=0
+misLabel=[]
+for each in range(len(valid_y)):
+    # if valid_ham_predict[each]>0.5:
+    #     valid_ham_predict[each]=1
+    # else:
+    #     valid_ham_predict[each]=0
+    # if valid_y[each]== valid_ham_predict[each]:
+    #     count +=1
+    if valid_y[each]==1:
+        true_ham+=1
+    else:
+        true_spam+=1
+
+    if valid_y[each]==1 and valid_ham_predict[each]>0.5:
+        count+=1
+    if valid_y[each]==0 and valid_ham_predict[each]<0.5:
+        count2+=1
+
+print("Valid ham is ham : ", count," Acc : ",count/true_ham," true ham: ",true_ham)
+print("Valid spam is spam : ", count2," Acc : ",count2/true_spam," true spam: ",true_spam)
+
+
+
+
+# -------------test samples---------------------------#
+testHam_files_count=os.listdir(test_path_ham).__len__()
+testSpam_files_count=os.listdir(test_path_spam).__len__()
+test_ham=np.zeros((testHam_files_count,count_features+1))
+test_spam=np.zeros((testSpam_files_count,count_features+1))
+
+
+index_file=0
+for file in os.listdir(test_path_ham):
+    words = bag_words(read(test_path_ham + file), {})
+    for word in words:
+        if word in baggedIndex:
+            test_ham[index_file][baggedIndex[word]] = words[word]
+
+    index_file += 1
+
+# ----------------pedict ham----------------------
+
+
+testHam_weighted_features = weights*test_ham[:,:-1]
+testHam_linear_score =np.sum(testHam_weighted_features,axis=1)
+test_ham_predict=sigmoid(testHam_linear_score)
+
+count=0
+count2=0
+true_ham=len(test_ham_predict)
+true_spam=0
+misLabel=[]
+for each in range(len(test_ham_predict)):
+    # if valid_ham_predict[each]>0.5:
+    #     valid_ham_predict[each]=1
+    # else:
+    #     valid_ham_predict[each]=0
+    # if valid_y[each]== valid_ham_predict[each]:
+    #     count +=1
+    if test_ham_predict[each]>0.5:
+        count+=1
+    else:
+        count2+=1
+
+print("Valid ham is ham : ", count," Acc : ",count/true_ham," true ham: ",true_ham)
+# print("Valid ham is ham : ", count," Acc : ",count/true_spam," true ham: ",true_spam)
+
+
+
+# ---------test spam-------------------------------------------------------#
+index_file=0
+for file in os.listdir(test_path_spam):
+    words = bag_words(read(test_path_spam + file), {})
+    for word in words:
+        if word in baggedIndex:
+            test_spam[index_file][baggedIndex[word]] = words[word]
+
+    index_file += 1
+
+testSpam_weighted_features = weights*test_spam[:,:-1]
+testSpam_linear_score =np.sum(testSpam_weighted_features,axis=1)
+test_spam_predict=sigmoid(testSpam_linear_score)
+
+count=0
+count2=0
+true_ham=0
+true_spam=len(test_spam_predict)
+misLabel=[]
+for each in range(len(test_spam_predict)):
+    # if valid_ham_predict[each]>0.5:
+    #     valid_ham_predict[each]=1
+    # else:
+    #     valid_ham_predict[each]=0
+    # if valid_y[each]== valid_ham_predict[each]:
+    #     count +=1
+    if test_spam_predict[each]>0.5:
+        count+=1
+    else:
+        count2+=1
+
+print("Valid spam is spam : ", count," Acc : ",count/true_spam," true spam: ",true_spam)
+# print("Valid ham is ham : ", count," Acc : ",count/true_spam," true ham: ",true_spam)
 
