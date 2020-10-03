@@ -116,7 +116,7 @@ def accuracy(true, false, class_label):
 
 # ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
 data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron4"
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
 
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
@@ -158,6 +158,11 @@ tp=count2
 tn=count1
 fp=len(spam_true)-count2
 fn=len(ham_true)-count1
+
+# tp = count1
+# tn = count2
+# fp = len(ham_true)- count1
+# fn = len(spam_true) - count2
 
 acc=(tp+tn)/(tp+tn+fp+fn)
 precision=(tp)/(tp+fp)

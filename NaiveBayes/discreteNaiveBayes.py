@@ -20,7 +20,7 @@ def read(file_path):
         text = file.read()
     return text
 
-
+# --------------------------------Bernouli----------------------------#
 def bag_words(text_data, bag):
     clean_text = nltk.sent_tokenize(text_data)
     for i in range(len(clean_text)):
@@ -163,10 +163,17 @@ acc_spam,count2,mislabel_spam = accuracy(spam_true,spam_false,"spam")
 acc_total = (acc_ham*test_ham_count+acc_spam*test_spam_count)/(test_ham_count+test_spam_count)
 print("Total accuracy : ",acc_total)
 
-tp=count2
-tn=count1
-fp=len(spam_true)-count2
-fn=len(ham_true)-count1
+# tp=count2
+# tn=count1
+# fp=len(spam_true)-count2
+# fn=len(ham_true)-count1
+
+
+tp = count1
+tn = count2
+fp = len(ham_true)- count1
+fn = len(spam_true) - count2
+
 
 acc=(tp+tn)/(tp+tn+fp+fn)
 precision=(tp)/(tp+fp)
