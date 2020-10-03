@@ -241,12 +241,27 @@ for each in range(len(test_spam_predict)):
 
 # print("test spam is spam : ", count2," Acc : ",count2/true_spam," true spam: ",true_spam)
 # print("Valid ham is ham : ", count," Acc : ",count/true_spam," true ham: ",true_spam)
+
+tp=count2
+tn=count1
+fp=true_spam-count2
+fn=true_ham-count1
+
+acc=(tp+tn)/(tp+tn+fp+fn)
+precision=(tp)/(tp+fp)
+recall = tp/(tp+fn)
+f1_score = 2*(recall * precision) / (recall + precision)
+
+
 print("\n\n-----------------------------Summary----------------------------------------------")
 print("max Acc : ",max_acc)
 print("rate : ",tuned_rate)
 print("lambda : ",tuned_lambda)
 
-print("\n\n Accuracy on test files : ",(count1+count2)/(true_ham+true_spam))
+print("\n Accuracy on test files : ",acc)
+print("\n precision : ",precision)
+print("\n Recall : ",recall)
+print("\n F1_score : ",f1_score)
 
 file_name="resultsLogisticRegression_"+data_path.split(os.path.sep)[-1]+".txt"
 with open(file_name,'w') as file:
@@ -257,7 +272,11 @@ with open(file_name,'w') as file:
     text = text + "Total Runtime : " + repr(np.sum([runtimes[x] for x in runtimes])) + "\n"
     text = text + "learning rates : 0.1 to 1 with step increment of 0.225 -----> 5 values \n"
     text = text + "lambda values : 0 to 2 with step increment of 0.2222 ----> 10 values \n"
-    text = text + "\n\n Accuracy on test files : "+ str((count1+count2)/(true_ham+true_spam))
+    text = text + "\n\n Accuracy on test files : "+ str((count1+count2)/(true_ham+true_spam)) + "\n"
+    text = text + " precision : " + str(precision) + "\n"
+    text = text + " Recall : " + str(recall) + "\n"
+    text = text + " F1_score : " + str(f1_score) + "\n"
+
     text = text + "\n\n\n"
     text = text + "Accuracies : \n"+repr(accuracies)+"\n\n"
     text = text + "Runtime : \n" + repr(runtimes) + "\n\n"
