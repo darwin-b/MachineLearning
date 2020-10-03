@@ -1,0 +1,11 @@
+ham is ham : 1.0
+spam is spam : 1.0
+Total accuracy : 1.0
+ mislabel ham file indices : []
+ mislabel spam file indices : []
+
+Bag of Ham :
+{'1.txt': {'chinese': 1, 'beijing': 1}, '2.txt': {'chinese': 1, 'shanghai': 1}, '3.txt': {'chinese': 1, 'macao': 1}}
+
+Bag of Spam :
+{'4.txt': {'tokyo': 1, 'japan': 1, 'chinese': 1}}
