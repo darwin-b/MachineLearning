@@ -4,29 +4,45 @@
 Make sure the Data files are nested in following order in these folders with exact names.
 
 Data
-    hw2
-            test
-                    ham
-                    spam
+  |
+  |--hw2
+     |
+     |----- test
+             |
+	     |------ham
+             |
+	     |------spam
             train
-                    ham
-                    spam
+             |
+	     |------ham
+             |
+	     |------spam
 
     enron1
-            test
-                    ham
-                    spam
+     |
+     |----- test
+             |
+	     |------ham
+             |
+	     |------spam
             train
-                    ham
-                    spam
+             |
+	     |------ham
+             |
+	     |------spam
 
     enron4
-            test
-                    ham
-                    spam
+     |
+     |----- test
+             |
+	     |------ham
+             |
+	     |------spam
             train
-                    ham
-                    spam
+             |
+	     |------ham
+             |
+	     |------spam
 
 # Assumptions
     Reading only Characters and words that are alphabets.  [A-Z,a-z]
