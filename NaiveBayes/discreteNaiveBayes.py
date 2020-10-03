@@ -43,8 +43,8 @@ def bag_words(text_data, bag):
 def conditional_prob(bag, word, count):
 
     word_inDoc=0
-    for w in bag:
-        if word in bag[w].keys():
+    for f in bag:
+        if word in bag[f].keys():
             word_inDoc+=1
     return (word_inDoc+1)/(count+2)
 
@@ -59,47 +59,23 @@ def doc_probability(testFile_path,vocab,class_prob,bag_ham,bag_spam,class_label,
         prob=class_prob
 
         if class_label=="ham":
-
             for v in vocab:
+                if (class_label, v) not in dp:
+                    dp[(class_label, v)] = conditional_prob(bag_ham, v, count)
+                cp1 = dp[(class_label, v)]
                 if v in bag_test:
-                    if (class_label, v) not in dp:
-                        dp[(class_label, v)] = np.log10(conditional_prob(bag_ham, v, count))
-                    cp1 = dp[(class_label, v)]
-                    prob = prob + cp1
+                    prob = prob + np.log10(cp1)
                 else:
-                    for f in bag_ham:
-                        if v in bag_ham[f]:
-                            if (class_label, v) not in dp:
-                                dp[(class_label, v)] = np.log10(conditional_prob(bag_ham, v, count))
-                            cp2 = 1- dp[(class_label, v)]
-                            prob = prob + cp2
-                        else:
-                            if ("spam", v) not in dp:
-                                dp[("spam", v)] = np.log10(conditional_prob(bag_spam, v, count))
-                            cp2 = 1- dp[("spam", v)]
-                            prob = prob + cp2
+                    prob = prob + np.log10(1-cp1)
         else:
             for v in vocab:
+                if (class_label, v) not in dp:
+                    dp[(class_label, v)] = conditional_prob(bag_spam, v, count)
+                cp1 = dp[(class_label, v)]
                 if v in bag_test:
-                    if (class_label, v) not in dp:
-                        dp[(class_label, v)] = np.log10(conditional_prob(bag_spam, v, count))
-                    cp1 = dp[(class_label, v)]
-                    prob = prob + cp1
+                    prob = prob + np.log10(cp1)
                 else:
-                    for f in bag_spam:
-                        if v in bag_spam[f]:
-                            if (class_label, v) not in dp:
-                                dp[(class_label, v)] = np.log10(conditional_prob(bag_spam, v, count))
-                            cp2 = 1- dp[(class_label, v)]
-                            prob = prob + cp2
-                        else:
-                            if ("ham", v) not in dp:
-                                dp[("ham", v)] = np.log10(conditional_prob(bag_ham, v, count))
-                            cp2 = 1- dp[("ham", v)]
-                            prob = prob + cp2
-
-
-
+                    prob = prob + np.log10(1-cp1)
 
         # else:
         #     for word in bag_test:
@@ -162,7 +138,7 @@ def accuracy(true, false, class_label):
 
 # ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
 data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw1"
 
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
@@ -187,7 +163,7 @@ for f in bag_ham:
 for f in bag_spam:
     for w in bag_spam[f]:
         if w not in vocabulary:
-            vocabulary[w]=1
+            vocabulary[w]=0
 
 ham_count = os.listdir(train_path_ham).__len__()
 spam_count = os.listdir(train_path_spam).__len__()
