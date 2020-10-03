@@ -19,7 +19,7 @@ def read(file_path):
         text = file.read()
     return text
 
-
+# --------------------------------Bernouli----------------------------#
 def bag_words(text_data, bag):
     clean_text = nltk.sent_tokenize(text_data)
     for i in range(len(clean_text)):
@@ -31,10 +31,9 @@ def bag_words(text_data, bag):
     for sentence in clean_text:
         words = nltk.word_tokenize(sentence)
         for word in words:
-            if word in bag.keys():
-                bag[word] = bag[word] + 1
-            else:
-                bag[word] = 1
+            if word not in bag.keys():
+                bag[word] =  1
+
     return bag
 
 
@@ -46,7 +45,7 @@ def sigmoid2(x):
 
 
 data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron4"
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
 
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
@@ -185,6 +184,12 @@ for learning_rate in rates:
         # print("Valid spam is spam : ", count2," Acc : ",count2/true_spam," true spam: ",true_spam)
         # print("Accuracy : ",count/(true_ham+true_spam))
 
+text = "Logistic Regression - Bernoulli Model trained with shuffled 70-30 Data split into training & validation Data\n\n"
+text = text + "--------------Validation Results------------------"+"\n\n"
+# text = text + "Best_Accuracy : " + repr(max_acc) + "\n"
+# text = text + " Best precision : " + str(precision) + "\n"
+# text = text + " Best Recall : " + str(recall) + "\n"
+# text = text + " Best F1_score : " + str(f1_score) + "\n\n"
 # ----------------------------------Read Test files--------------------------------------------#
 testHam_files_count=os.listdir(test_path_ham).__len__()
 testSpam_files_count=os.listdir(test_path_spam).__len__()
@@ -249,7 +254,6 @@ tn = count2
 fp = true_ham - count1
 fn = true_spam - count2
 
-
 acc=(tp+tn)/(tp+tn+fp+fn)
 precision=(tp)/(tp+fp)
 recall = tp/(tp+fn)
@@ -261,7 +265,6 @@ print("max Acc : ",max_acc)
 print("rate : ",tuned_rate)
 print("lambda : ",tuned_lambda)
 
-
 print("\n-----------------------------Test DataSet Result----------------------------------------------\n")
 
 print("rate : ",tuned_rate)
@@ -272,9 +275,10 @@ print(" precision : ",precision)
 print(" Recall : ",recall)
 print(" F1_score : ",f1_score)
 
-file_name="resultsLogisticRegression_"+data_path.split(os.path.sep)[-1]+".txt"
+
+file_name="resultsLRBernouli_"+data_path.split(os.path.sep)[-1]+".txt"
 with open(file_name,'w') as file:
-    text = "Logistic Regression Model trained with shuffled 70-30 Data split into training & validation Data\n\n"
+    text = "Logistic Regression - Bernoulli  Model trained with shuffled 70-30 Data split into training & validation Data\n\n"
     text = text + "--------------Validation Results------------------" + "\n\n"
     text = text + "Best_Accuracy : " + repr(max_acc) + "\n"
     text = text + "lambda tuned : " + repr(tuned_lambda) + "\n"
