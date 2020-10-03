@@ -1,6 +1,11 @@
 ham is ham : 0.9641693811074918
 spam is spam : 0.9395973154362416
-Total accuracy : 0.956140350877193
+
+ Total accuracy : 0.956140350877193
+ precision : 0.9395973154362416
+ Recall : 0.9271523178807947
+ F1_score : 0.9333333333333333
+
  mislabel ham file indices : [23, 41, 52, 102, 106, 122, 143, 161, 202, 230, 235]
  mislabel spam file indices : [42, 56, 78, 99, 101, 104, 107, 119, 147]
 
