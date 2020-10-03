@@ -101,7 +101,7 @@ def accuracy(true, false, class_label):
         print("spam is spam : ", count, "/", len(true))
     print(" acc : ", acc)
 
-    return acc, mislabel
+    return acc, count, mislabel
 
 
 # bag1 = bag_words(" Chinese Beijing Chinese Chinese Chinese Shanghai Chinese Macao",{})
@@ -116,7 +116,7 @@ def accuracy(true, false, class_label):
 
 # ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
 data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron1"
+            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\enron4"
 
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
@@ -148,15 +148,37 @@ ham_false,cp_hamfalse = doc_probability(test_path_ham, prob_ham, bag_ham, bag_sp
 spam_true,cp_spamtrue = doc_probability(test_path_spam, prob_spam, bag_ham, bag_spam, "spam")
 spam_false,cp_spamfalse = doc_probability(test_path_spam, prob_spam, bag_ham, bag_spam, "ham")
 
-acc_ham,mislabel_ham  = accuracy(ham_true,ham_false,"ham")
-acc_spam,mislabel_spam = accuracy(spam_true,spam_false,"spam")
+acc_ham,count1,mislabel_ham  = accuracy(ham_true,ham_false,"ham")
+acc_spam,count2,mislabel_spam = accuracy(spam_true,spam_false,"spam")
 
 acc_total = (acc_ham*test_ham_count+acc_spam*test_spam_count)/(test_ham_count+test_spam_count)
-print("Total accuracy : ",acc_total)
+print("\nTotal accuracy : ",acc_total)
+
+tp=count2
+tn=count1
+fp=len(spam_true)-count2
+fn=len(ham_true)-count1
+
+acc=(tp+tn)/(tp+tn+fp+fn)
+precision=(tp)/(tp+fp)
+recall = tp/(tp+fn)
+f1_score = 2*(recall * precision) / (recall + precision)
+
+
+print("\n Accuracy on test files : ",acc_total)
+print(" precision : ",precision)
+print(" Recall : ",recall)
+print(" F1_score : ",f1_score)
+
 
 file_name="resultsMatrix_"+data_path.split(os.path.sep)[-1]+".txt"
 with open(file_name,'w') as file:
-    text = "ham is ham : "+str(acc_ham)+"\n"+"spam is spam : "+str(acc_spam)+"\n"+"Total accuracy : "+str(acc_total)+"\n"
+    text = "ham is ham : "+str(acc_ham)+"\n"+"spam is spam : "+str(acc_spam)+"\n"+"\n Total accuracy : "+str(acc_total)+"\n"
+    text = text + " precision : " + str(precision) + "\n"
+    text = text + " Recall : " + str(recall) + "\n"
+    text = text + " F1_score : " + str(f1_score) + "\n\n"
     text = text+" mislabel ham file indices : "+repr(mislabel_ham)+"\n"+" mislabel spam file indices : "+repr(mislabel_spam)+"\n\n"
     text = text +"Bag of Ham :\n"+ repr(bag_ham)+"\n\n"+"Bag of Spam :\n"+ repr(bag_spam)
+
+
     file.write(text)
