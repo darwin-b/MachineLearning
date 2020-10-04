@@ -1,0 +1,21 @@
+
+python sgdClassifier.py "path to dataset1"  
+python sgdClassifier.py "path to dataset2"
+python sgdClassifier.py "path to dataset3"
+
+
+python sgdClassifierBernoulli.py "path to dataset1"  
+python sgdClassifierBernoulli.py "path to dataset2"
+python sgdClassifierBernoulli.py "path to dataset3"
+
+
+
+Eg:-
+python sgdClassifier.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\hw2"
+python sgdClassifier.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron1"
+python sgdClassifier.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron4"
+
+
+
+Note: 
+Make sure the datasetes are nested as mentioned in Read me file

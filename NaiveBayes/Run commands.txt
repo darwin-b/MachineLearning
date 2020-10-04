@@ -1,0 +1,25 @@
+
+python naiveBayes.py "path to dataset1"
+python naiveBayes.py "path to dataset2"
+python naiveBayes.py "path to dataset3"
+
+
+python discreteNaiveBayes.py "path to dataset1"
+python discreteNaiveBayes.py "path to dataset2"
+python discreteNaiveBayes.py "path to dataset3"
+
+
+
+Eg:-
+python naiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\hw2"
+python naiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron1"
+python naiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron4"
+
+python discreteNaiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\hw2"
+python discreteNaiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron1"
+python discreteNaiveBayes.py "C:\Users\darwi\OneDrive - The University of Texas at Dallas\Acads\Machine Learning\DataSets\enron4"
+
+
+
+Note: 
+Make sure the datasetes are nested as mentioned in Read me file
