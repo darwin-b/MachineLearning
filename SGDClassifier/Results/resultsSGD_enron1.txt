@@ -1,0 +1,13 @@
+Trained with shuffled 70-30 Data split into training & validation Data
+
+--------------Validation Results------------------
+
+validation Accuracy : 0.8962962962962963
+
+
+--------------Results Test Data------------------
+
+ Accuracy on test files : 0.8991228070175439
+ precision : 0.9055374592833876
+ Recall : 0.9423728813559322
+ F1_score : 0.9235880398671096
