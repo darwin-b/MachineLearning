@@ -111,12 +111,9 @@ train_X,valid_X = data_X[:splitValue,:-1], data_X[splitValue:,:-1]
 train_y,valid_y = data_X[:splitValue,-1], data_X[splitValue:,-1]
 
 
-
-X = np.array(train_X)
-Y = np.array(train_y)
 # default penalty --> L2 regularisation , tol-> (epsilon) for which the iterations stops before max iterations reached
 SGDClf = linear_model.SGDClassifier(max_iter = 1000, tol=1e-3)
-SGDClf.fit(X, Y)
+SGDClf.fit(train_X, train_y)
 
 pred=SGDClf.predict(valid_X)
 
@@ -189,3 +186,17 @@ print("\n Total Accuracy on test files : ",acc)
 print(" precision : ",precision)
 print(" Recall : ",recall)
 print(" F1_score : ",f1_score)
+
+file_name="resultsSGD_"+data_path.split(os.path.sep)[-1]+".txt"
+with open(file_name,'w') as file:
+    text = "Trained with shuffled 70-30 Data split into training & validation Data\n\n"
+    text = text + "--------------Validation Results------------------" + "\n\n"
+    text = text + "validation Accuracy : " + repr(count/len(valid_y)) + "\n\n\n"
+
+    text = text + "--------------Results Test Data------------------"+"\n"
+    text = text + "\n Accuracy on test files : "+ str(acc) + "\n"
+    text = text + " precision : " + str(precision) + "\n"
+    text = text + " Recall : " + str(recall) + "\n"
+    text = text + " F1_score : " + str(f1_score) + "\n"
+    file.write(text)
+
