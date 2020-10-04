@@ -9,8 +9,9 @@ import time
 import random
 
 nltk.download('punkt')
-data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data"
+# data_path = "C:\\Users\\darwi\\OneDrive - " \
+#             "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data"
+
 cwd = os.getcwd()
 
 
@@ -44,9 +45,10 @@ def sigmoid2(x):
     return np.exp(-1 * x) / (1 + np.exp(-1 * x))
 
 
-data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
+# data_path = "C:\\Users\\darwi\\OneDrive - " \
+#             "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
 
+data_path = sys.argv[1]
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
 train_path_ham = data_path + os.path.sep + "train" + os.path.sep + "ham" + os.path.sep

@@ -9,8 +9,8 @@ import time
 
 nltk.download('punkt')
 
-data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data"
+# data_path = "C:\\Users\\darwi\\OneDrive - " \
+#             "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data"
 cwd = os.getcwd()
 
 data = []
@@ -37,8 +37,6 @@ def bag_words(text_data, bag):
             else:
                 bag[word] = 1
     return bag
-
-    # for word in clean_text:
 
 
 def conditional_prob(bag_ham, bag_spam, word, class_bag):
@@ -115,9 +113,10 @@ def accuracy(true, false, class_label):
 # conditional_prob(bag_train1_ham,bag_train1_spam,"re","ham")
 
 # ------------------------get path of Dataset with train & test sets nested in Dataset folder  ----------------------#
-data_path = "C:\\Users\\darwi\\OneDrive - " \
-            "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
+# data_path = "C:\\Users\\darwi\\OneDrive - " \
+#             "The University of Texas at Dallas\\Acads\\Machine Learning\\Assignments\\MachineLearning\\Data\\hw2"
 
+data_path=sys.argv[1]
 test_path_ham = data_path + os.path.sep + "test" + os.path.sep + "ham" + os.path.sep
 test_path_spam = data_path + os.path.sep + "test" + os.path.sep + "spam" + os.path.sep
 train_path_ham = data_path + os.path.sep + "train" + os.path.sep + "ham" + os.path.sep
