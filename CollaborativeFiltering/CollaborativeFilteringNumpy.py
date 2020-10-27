@@ -53,7 +53,7 @@ with open(test_ratings_path,'r') as reader:
         mapped_user = map_users[user_id]
         mapped_title = map_titles[title]
 
-        normalising_constant = weights[user_id].sum()
+        normalising_constant = weights[mapped_user].sum()
         predicted[(mapped_title,user_id)] = mean_rating[mapped_user] + (weights[mapped_user].dot(data_matrix[:,mapped_title] - mean_rating))/normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
         error_rating.append(float(rating.replace("\n", ""))-predicted[(mapped_title,user_id)])
