@@ -25,9 +25,10 @@ with open(train_ratings_path,'r') as reader:
         data_matrix[map_users[user_id]][map_titles[title]] = rating
 
 
-mean_rating = np.nanmean(data_matrix,axis=1)[:,np.newaxis]
+mean_rating = np.nanmean(data_matrix,axis=1)
 
-deviation = data_matrix - mean_rating
+deviation = data_matrix - mean_rating[:,np.newaxis]
+data_matrix[np.isnan(data_matrix)]=0
 deviation[np.isnan(deviation)]=0
 
 numerator_correlation = deviation.dot(deviation.T)
@@ -52,7 +53,8 @@ with open(test_ratings_path,'r') as reader:
         mapped_user = map_users[user_id]
         mapped_title = map_titles[title]
 
-        predicted[(mapped_title,user_id)] = mean_rating[mapped_user] + weights[mapped_user]*(data_matrix[:,mapped_title] - mean_rating)
+        normalising_constant = weights[user_id].sum()
+        predicted[(mapped_title,user_id)] = mean_rating[mapped_user] + (weights[mapped_user].dot(data_matrix[:,mapped_title] - mean_rating))/normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
         error_rating.append(float(rating.replace("\n", ""))-predicted[(mapped_title,user_id)])
 
@@ -65,3 +67,5 @@ b = np.array([np.nan,0,3])
 c=a/b
 c[np.isnan(c)]=0
 c[np.isinf(c)]=0
+
+z = data_matrix[:,1]
