@@ -37,6 +37,9 @@ denominator_correlation = d_correlation.dot(d_correlation.T)
 
 weights = numerator_correlation/np.sqrt(denominator_correlation)
 
+weights[np.isnan(weights)]=0
+weights[np.isinf(weights)]=0
+
 
 act_ratings=[]
 pred_ratings=[]
@@ -49,10 +52,16 @@ with open(test_ratings_path,'r') as reader:
         mapped_user = map_users[user_id]
         mapped_title = map_titles[title]
 
-        predicted[user_id] = mean_rating[mapped_user] + weights[mapped_user]*(data_matrix[:,mapped_title] - mean_rating)
+        predicted[(mapped_title,user_id)] = mean_rating[mapped_user] + weights[mapped_user]*(data_matrix[:,mapped_title] - mean_rating)
         act_ratings.append(float(rating.replace("\n", "")))
         error_rating.append(float(rating.replace("\n", ""))-predicted[(mapped_title,user_id)])
 
         print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)])
         c+=1
         # break
+
+a = np.array([np.nan,2,3])
+b = np.array([np.nan,0,3])
+c=a/b
+c[np.isnan(c)]=0
+c[np.isinf(c)]=0
