@@ -62,10 +62,16 @@ with open(test_ratings_path,'r') as reader:
         c+=1
         # break
 
-a = np.array([np.nan,2,3])
-b = np.array([np.nan,0,3])
-c=a/b
-c[np.isnan(c)]=0
-c[np.isinf(c)]=0
+# avg_absMean =
 
-z = data_matrix[:,1]
+file_name="resultsMatrix_NetflixPredictions"+".txt"
+with open(file_name,'w') as file:
+    # text = "ham is ham : "+str(acc_ham)+"\n"+"spam is spam : "+str(acc_spam)+"\n"+"\n Total accuracy : "+str(acc_total)+"\n"
+    # text = text + " precision : " + str(precision) + "\n"
+    # text = text + " Recall : " + str(recall) + "\n"
+    # text = text + " F1_score : " + str(f1_score) + "\n\n"
+    # text = text+" mislabel ham file indices : "+repr(mislabel_ham)+"\n"+" mislabel spam file indices : "+repr(mislabel_spam)+"\n\n"
+    # text = text +"Bag of Ham :\n"+ repr(bag_ham)+"\n\n"+"Bag of Spam :\n"+ repr(bag_spam)
+
+
+    # file.write(text)
