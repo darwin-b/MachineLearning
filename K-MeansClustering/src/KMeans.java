@@ -1,8 +1,6 @@
 
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,15 +63,22 @@ public class KMeans {
         int size = rgb.length;
         int[] clusterCenters = new int[k];
 
+        int[] clusterCentersBlue =new int[k];
+        int[] clusterCentersGreen =new int[k];
+        int[] clusterCentersRed =new int[k];
+
         Random rd = new Random();
         for (int i=0; i<clusterCenters.length;i++)
         {
             clusterCenters[i]= rgb[rd.nextInt(size)];
+            clusterCentersBlue[i]= clusterCenters[i] & 0xff;
+            clusterCentersGreen[i] = (clusterCenters[i] & 0xff00) >> 8;
+            clusterCentersRed[i] = (clusterCenters[i] & 0xff0000) >> 16;
         }
-//        int[] clusterCe
+
 
         HashMap<Integer,Integer> clusterMap = new HashMap<Integer,Integer>();
-        for(int iteration=0;iteration<100;iteration++) {
+        for(int iteration=0;iteration<10;iteration++) {
 
             int[] auxiliaryCcBlue= new int[k];
             int[] auxiliaryCcGreen= new int[k];
@@ -87,9 +92,9 @@ public class KMeans {
                 int pRed = (rgb[point] & 0xff0000) >> 16;
 
                 for (int cluster = 0; cluster < k; cluster++) {
-                    int cBlue = clusterCenters[cluster] & 0xff;
-                    int cGreen = (clusterCenters[cluster] & 0xff00) >> 8;
-                    int cRed = (clusterCenters[cluster] & 0xff0000) >> 16;
+                    int cBlue = clusterCentersBlue[cluster];
+                    int cGreen = clusterCentersGreen[cluster];
+                    int cRed = clusterCentersRed[cluster];
 
                     cluster_distance[cluster] = Math.abs(cBlue - pBlue) + Math.abs(cGreen - pGreen) + Math.abs(cRed - pRed);
                 }
@@ -109,17 +114,20 @@ public class KMeans {
                 auxiliaryCcCount[index] +=1;
             }
 
-            for(int i=0;i<clusterCenters.length;i++)
+            for(int i=0;i<k;i++)
             {
-                int avgBlue = auxiliaryCcBlue[i]/auxiliaryCcCount[i];
-                int avgGreen = auxiliaryCcGreen[i]/auxiliaryCcCount[i];
-                int avgRed = auxiliaryCcRed[i]/auxiliaryCcCount[i];
-
-//                clusterCenters[i]=
+                clusterCentersBlue[i]= auxiliaryCcBlue[i]/auxiliaryCcCount[i];
+                clusterCentersGreen[i] = auxiliaryCcGreen[i]/auxiliaryCcCount[i];
+                clusterCentersRed[i] = auxiliaryCcRed[i]/auxiliaryCcCount[i];
             }
         }
+
+        for(int point=0;point<rgb.length;point++)
+        {
+            int cluster=clusterMap.get(point);
+            Color c = new Color(clusterCentersRed[cluster],clusterCentersGreen[cluster],clusterCentersBlue[cluster]);
+            rgb[point]=c.getRGB();
+        }
     }
-
-
 
 }
