@@ -34,7 +34,6 @@ print("-----------------Computing Weights-------------------")
 Calculating Mean of voted ratings for each user
 '''
 mean_rating = np.nanmean(data_matrix, axis=1)
-
 deviation = data_matrix - mean_rating[:, np.newaxis]
 
 '''
@@ -53,6 +52,8 @@ print("-----------------Weights Computed-------------------")
 
 '''
 Replacing any Nan or invalid values due to divison of 0 with Zeros
+    This happens if a user has a voted same rating for all the titles
+    This will lead to zero value on computing [v(a,j) - v(mean)]**2 in denominator 
 '''
 weights[np.isnan(weights)] = 0
 weights[np.isinf(weights)] = 0
@@ -61,7 +62,6 @@ act_ratings = []
 pred_ratings = []
 error_rating = []
 predicted = {}
-MAE = 0
 abs_error = 0.0
 squared_error = 0.0
 '''
@@ -77,15 +77,20 @@ with open(test_ratings_path, 'r') as reader:
 
         normalising_constant = weights[mapped_user].sum()
 
-        # print(np.count_nonzero(np.isnan(data_matrix[:, mapped_title])))
+
         rated_diff = data_matrix[:, mapped_title] - mean_rating
-        # print(np.count_nonzero(np.isnan(rated_diff)))
+
+        '''
+        Replacing Nan values after subtracting mean for titles that 
+            are not applicable to respective users.
+        '''
         rated_diff[np.isnan(rated_diff)]=0
-        # print(np.count_nonzero(np.isnan(rated_diff)))
+
 
         predicted[(mapped_title, user_id)] = mean_rating[mapped_user] + (
             weights[mapped_user].dot(rated_diff)) / normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
+
 
         if np.isnan(predicted[(mapped_title, user_id)]):
             predicted[(mapped_title, user_id)]=0
@@ -104,19 +109,12 @@ with open(test_ratings_path, 'r') as reader:
 
         # break
 
-print("Nan count : ",nan_counts)
-# t_err = 0
-# for e in error_rating:
-#     t_err += abs(e)
-#     squared_error += e ** 2
-#
-# print(t_err)
-# print(abs_error)
-# abs_error = t_err
+# print("Nan count : ",nan_counts)
 
 MAE =  abs_error/ len(act_ratings)
 RMSE = np.math.sqrt(squared_error / len(act_ratings))
 
+print("\n")
 print("-------------------------------------------------------------")
 print("Mean absolute Error : ", MAE)
 print("Mean Squared Error : ", RMSE)
