@@ -77,11 +77,11 @@ with open(test_ratings_path, 'r') as reader:
 
         normalising_constant = weights[mapped_user].sum()
 
-        print(np.count_nonzero(np.isnan(data_matrix[:, mapped_title])))
+        # print(np.count_nonzero(np.isnan(data_matrix[:, mapped_title])))
         rated_diff = data_matrix[:, mapped_title] - mean_rating
-        print(np.count_nonzero(np.isnan(rated_diff)))
+        # print(np.count_nonzero(np.isnan(rated_diff)))
         rated_diff[np.isnan(rated_diff)]=0
-        print(np.count_nonzero(np.isnan(rated_diff)))
+        # print(np.count_nonzero(np.isnan(rated_diff)))
 
         predicted[(mapped_title, user_id)] = mean_rating[mapped_user] + (
             weights[mapped_user].dot(rated_diff)) / normalising_constant
@@ -102,28 +102,30 @@ with open(test_ratings_path, 'r') as reader:
 
         print(c, " Acct : ", float(rating.replace("\n", "")), "Pred : ", predicted[(mapped_title, user_id)])
 
-        break
+        # break
 
 print("Nan count : ",nan_counts)
-t_err = 0
-for e in error_rating:
-    t_err += abs(e)
-    squared_error += e ** 2
-
-print(t_err)
-print(abs_error)
+# t_err = 0
+# for e in error_rating:
+#     t_err += abs(e)
+#     squared_error += e ** 2
+#
+# print(t_err)
+# print(abs_error)
 # abs_error = t_err
 
+MAE =  abs_error/ len(act_ratings)
+RMSE = np.math.sqrt(squared_error / len(act_ratings))
+
 print("-------------------------------------------------------------")
-print("Mean absolute Error : ", abs_error / len(act_ratings))
-print("Mean Squared Error : ", squared_error / len(act_ratings))
+print("Mean absolute Error : ", MAE)
+print("Mean Squared Error : ", RMSE)
 
 print("Errors (MAE, MSE) : ", abs_error, squared_error)
 
 file_name = "resultsMatrix_NetflixPredictions" + ".txt"
 with open(file_name, 'w') as file:
-    text = "MAE : " + str(abs_error / len(act_ratings)) + "\n" + "MSE : " + str(
-        squared_error / len(act_ratings)) + "\n\n"
+    text = "MAE : " + str(MAE) + "\n" + "RMSE : " + str(RMSE) + "\n\n"
     text = text + "-----------------------------------------------------------------------------------------\n"
     text = text + " Predicted Ratings : \n" + str(predicted)
 
