@@ -11,22 +11,28 @@ X_train, X_test = X[:60000], X[60000:]
 y_train, y_test = y[:60000], y[60000:]
 
 
-# layer_sizes=[(10,),(25,),(50,),(75,),(100,),(250,)]
-# max_iters = [5,10,25,50]
+layer_sizes=[(10,),(25,),(50,),(75,),(100,),(250,)]
+max_iters = [5,10,25,50]
 
-layer_sizes=[(10,),(25,)]
-max_iters = [5,10,20]
+# layer_sizes=[(10,),(25,)]
+# max_iters = [5,10,20]
 solvers = ["sgd","adam","lbfgs"]
 
 
+results ="\n"
 
 for layer_size in layer_sizes:
     for iter in max_iters:
         for solver in solvers:
 
-            print("\n---------------------------------------------------------------------------")
-            print("-----------------------------------------------------------------------------")
-            print(" layer_size: ",layer_size)
+            results +="---------------------------------------------------------------------------\n"
+            results +="---------------------------------------------------------------------------\n"
+            results +=" layer_size: "+ str(layer_size)+"\n"
+            results +=" Max_iterations: "+ str(iter)+"\n"
+            results += " Solver: " + str(solver) + "\n"
+
+
+
             print(" Max_iterations: ",iter)
             print(" Solver: ", solver)
 
@@ -38,3 +44,11 @@ for layer_size in layer_sizes:
             print("\nTest set score: %f" % mlp.score(X_test, y_test))
             print("\n---------------------------------------------------------------------------")
             print("-----------------------------------------------------------------------------")
+
+            results += "\nTrain set score: " + str(mlp.score(X_train, y_train))
+            results += "\nTest set score:" + str(mlp.score(X_test, y_test))
+            results += "\n---------------------------------------------------------------------------"
+            results += "\n---------------------------------------------------------------------------\n\n"
+
+with open("MLP_Classifier_resultsMatrix.txt",'w') as file:
+    file.write(results)
