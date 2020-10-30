@@ -31,8 +31,9 @@ for layer_size in layer_sizes:
             results +=" Max_iterations: "+ str(iter)+"\n"
             results += " Solver: " + str(solver) + "\n"
 
-
-
+            print("\n---------------------------------------------------------------------------")
+            print("-----------------------------------------------------------------------------")
+            print(" layer_size: ",layer_size)
             print(" Max_iterations: ",iter)
             print(" Solver: ", solver)
 
