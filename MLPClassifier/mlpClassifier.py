@@ -37,8 +37,8 @@ for layer_size in layer_sizes:
             print(" Max_iterations: ",iter)
             print(" Solver: ", solver)
 
-            mlp = MLPClassifier(hidden_layer_sizes=(50,), max_iter=25, alpha=1e-4,
-                                solver='sgd', verbose=10, random_state=1,
+            mlp = MLPClassifier(hidden_layer_sizes=layer_size, max_iter=iter, alpha=1e-4,
+                                solver=solver, verbose=10, random_state=1,
                                 learning_rate_init=.1)
             mlp.fit(X_train, y_train)
             print("\nTrain set score: %f" % mlp.score(X_train, y_train))
