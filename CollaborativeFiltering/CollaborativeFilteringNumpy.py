@@ -81,9 +81,9 @@ with open(test_ratings_path,'r') as reader:
         act_ratings.append(float(rating.replace("\n", "")))
         error =  (float(rating.replace("\n", "")))-predicted[(mapped_title,user_id)]
         error_rating.append(error)
-        abs_error += abs(error)
-        squared_error += error**2
-        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error)
+        abs_error =abs_error + abs(error)
+        squared_error = squared_error + (error**2)
+        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)])
         c+=1
         # break
 
