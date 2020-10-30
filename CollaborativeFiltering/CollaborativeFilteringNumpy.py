@@ -86,13 +86,14 @@ with open(test_ratings_path, 'r') as reader:
         c += 1
         # break
 
-print(error)
-print(abs(error))
-print(abs_error)
-print(len(act_ratings))
-print(abs_error / len(act_ratings))
+# print(error)
+# print(abs(error))
+# print(abs_error)
+# print(len(act_ratings))
+# print(abs_error / len(act_ratings))
+#
+# print(squared_error)
 
-print(squared_error)
 print("-------------------------------------------------------------")
 print("Mean absolute Error : ", abs_error / len(act_ratings))
 print("Mean Squared Error : ", squared_error / len(act_ratings))
