@@ -1,9 +1,13 @@
+import sys
 import numpy as np
 
 print("-----------------Reading Train Ratings -------------------")
 
 train_ratings_path = "./../Data/netflix/TrainingRatings.txt"
 test_ratings_path = "./../Data/netflix/TestingRatings.txt"
+
+train_ratings_path = sys.argv[1]
+test_ratings_path = sys.argv[2]
 
 map_users = {}
 map_titles = {}
@@ -91,7 +95,6 @@ with open(test_ratings_path, 'r') as reader:
             weights[mapped_user].dot(rated_diff)) / normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
 
-
         if np.isnan(predicted[(mapped_title, user_id)]):
             predicted[(mapped_title, user_id)]=0
             nan_counts +=1
@@ -118,8 +121,9 @@ print("\n")
 print("-------------------------------------------------------------")
 print("Mean absolute Error : ", MAE)
 print("Mean Squared Error : ", RMSE)
-
-print("Errors (MAE, MSE) : ", abs_error, squared_error)
+print("-------------------------------------------------------------")
+print("\n")
+# print("Errors (MAE, MSE) : ", abs_error, squared_error)
 
 file_name = "resultsMatrix_NetflixPredictions" + ".txt"
 with open(file_name, 'w') as file:
