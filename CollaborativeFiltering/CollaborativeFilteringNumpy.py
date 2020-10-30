@@ -6,6 +6,9 @@ print("-----------------Reading Train Ratings -------------------")
 train_ratings_path = "./../Data/netflix/TrainingRatings.txt"
 test_ratings_path = "./../Data/netflix/TestingRatings.txt"
 
+'''
+Get paths to test & train Data files from command line as arguments
+'''
 train_ratings_path = sys.argv[1]
 test_ratings_path = sys.argv[2]
 
