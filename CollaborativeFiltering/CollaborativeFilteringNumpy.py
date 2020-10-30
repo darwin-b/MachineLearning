@@ -40,7 +40,7 @@ deviation = data_matrix - mean_rating[:, np.newaxis]
 '''
 Replacing Nan values with Zeroes
 '''
-data_matrix[np.isnan(data_matrix)] = 0
+# data_matrix[np.isnan(data_matrix)] = 0
 deviation[np.isnan(deviation)] = 0
 
 numerator_correlation = deviation.dot(deviation.T)
@@ -76,11 +76,13 @@ with open(test_ratings_path, 'r') as reader:
         mapped_title = map_titles[title]
 
         normalising_constant = weights[mapped_user].sum()
+        rated_diff = data_matrix[:, mapped_title] - mean_rating
+        rated_diff[np.isnan(rated_diff)]=0
         predicted[(mapped_title, user_id)] = mean_rating[mapped_user] + (
-            weights[mapped_user].dot(data_matrix[:, mapped_title] - mean_rating)) / normalising_constant
+            weights[mapped_user].dot(rated_diff)) / normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
 
-        if np.math.isnan(predicted[(mapped_title, user_id)]):
+        if np.isnan(predicted[(mapped_title, user_id)]):
             predicted[(mapped_title, user_id)]=0
             nan_counts +=1
 
@@ -89,11 +91,12 @@ with open(test_ratings_path, 'r') as reader:
             error_rating.append(error)
             abs_error = abs_error + abs(error)
             squared_error = squared_error + (error ** 2)
+            c += 1
         except Exception as e:
             print("error adding :", e.__class__)
 
         print(c, " Acct : ", float(rating.replace("\n", "")), "Pred : ", predicted[(mapped_title, user_id)])
-        c += 1
+
         # break
 
 print("Nan count : ",nan_counts)
