@@ -73,22 +73,23 @@ with open(test_ratings_path,'r') as reader:
         normalising_constant = weights[mapped_user].sum()
         predicted[(mapped_title,user_id)] = mean_rating[mapped_user] + (weights[mapped_user].dot(data_matrix[:,mapped_title] - mean_rating))/normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
-        error =  float(rating.replace("\n", ""))-predicted[(mapped_title,user_id)]
+        error =  (float(rating.replace("\n", "")))-predicted[(mapped_title,user_id)]
         error_rating.append(error)
         abs_error += abs(error)
         squared_error += error**2
-        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)])
+        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error)
         c+=1
         # break
 
 
-print("\n\n","Mean absolute Error : ",abs_error/len(act_ratings))
+print("Mean absolute Error : ",abs_error/len(act_ratings))
 print("Mean Squared Error : ",squared_error/len(act_ratings))
 
-print("\nErrors (MAE, MSE)",abs_error,squared_error)
+print("Errors (MAE, MSE) : ",abs_error,squared_error)
 
 file_name="resultsMatrix_NetflixPredictions"+".txt"
 with open(file_name,'w') as file:
     text = "MAE : "+str(abs_error/len(act_ratings))+"\n"+"MSE : "+str(squared_error/len(act_ratings))+"\n\n"
     text = text + "-----------------------------------------------------------------------------------------\n"
     text = text + " Predicted Ratings : \n" + str(predicted)
+
