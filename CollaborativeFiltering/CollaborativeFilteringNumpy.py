@@ -80,19 +80,23 @@ with open(test_ratings_path, 'r') as reader:
         act_ratings.append(float(rating.replace("\n", "")))
         error = (float(rating.replace("\n", ""))) - predicted[(mapped_title, user_id)]
         error_rating.append(error)
-        abs_error = abs_error + abs(error)
+        try:
+            abs_error = abs_error + abs(error)
+        except Exception as e:
+            print("error adding :", e.__class__)
         squared_error = squared_error + (error ** 2)
         print(c, " Acct : ", float(rating.replace("\n", "")), "Pred : ", predicted[(mapped_title, user_id)])
         c += 1
         # break
 
-
-t_err=0
+t_err = 0
 for e in error_rating:
-    t_err += abs(error)
+    t_err += abs(e)
+    squared_error += e ** 2
 
 print(t_err)
-abs_error = t_err
+print(abs_error)
+# abs_error = t_err
 
 print("-------------------------------------------------------------")
 print("Mean absolute Error : ", abs_error / len(act_ratings))
@@ -102,7 +106,8 @@ print("Errors (MAE, MSE) : ", abs_error, squared_error)
 
 file_name = "resultsMatrix_NetflixPredictions" + ".txt"
 with open(file_name, 'w') as file:
-    text = "MAE : " + str(abs_error / len(act_ratings)) + "\n" + "MSE : " + str(squared_error / len(act_ratings)) + "\n\n"
+    text = "MAE : " + str(abs_error / len(act_ratings)) + "\n" + "MSE : " + str(
+        squared_error / len(act_ratings)) + "\n\n"
     text = text + "-----------------------------------------------------------------------------------------\n"
     text = text + " Predicted Ratings : \n" + str(predicted)
 
