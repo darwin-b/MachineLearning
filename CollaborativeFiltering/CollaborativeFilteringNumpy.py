@@ -83,11 +83,18 @@ with open(test_ratings_path,'r') as reader:
         error_rating.append(error)
         abs_error += abs(error)
         squared_error += error**2
-        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error," len: ",len(act_ratings))
+        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error)
         c+=1
         # break
 
+print(error)
+print(abs(error))
+print(abs_error)
+print(len(act_ratings))
+print(abs_error/len(act_ratings))
 
+print(squared_error)
+print("-------------------------------------------------------------")
 print("Mean absolute Error : ", abs_error / len(act_ratings))
 print("Mean Squared Error : ",squared_error/len(act_ratings))
 
