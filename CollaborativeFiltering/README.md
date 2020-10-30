@@ -2,7 +2,7 @@
 
 
 ## Instructions to Execute 
-> python CollaborativeFilteringNumpy.py <path-to-Train-data-file> <path-to-Test-data-file>  
+> python CollaborativeFilteringNumpy.py <path-to-Train-data-file\> <path-to-Test-data-file\>
 >> Eg: python CollaborativeFilteringNumpy.py /home/Data/Netflix/TrainingRatings.txt /home/Data/Netflix/TestingRatings.txt 
 
 
