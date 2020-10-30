@@ -45,7 +45,7 @@ deviation[np.isnan(deviation)] = 0
 
 numerator_correlation = deviation.dot(deviation.T)
 d_correlation = (deviation ** 2).sum(axis=1)[:, np.newaxis]
-denominator_correlation = d_correlation.dot(d_correlation.T)
+denominator_correlation = np.absolute(d_correlation.dot(d_correlation.T))
 
 weights = numerator_correlation / np.sqrt(denominator_correlation)
 
@@ -86,13 +86,13 @@ with open(test_ratings_path, 'r') as reader:
         c += 1
         # break
 
-# print(error)
-# print(abs(error))
-# print(abs_error)
-# print(len(act_ratings))
-# print(abs_error / len(act_ratings))
-#
-# print(squared_error)
+
+t_err=0
+for e in error_rating:
+    t_err += abs(error)
+
+print(t_err)
+abs_error = t_err
 
 print("-------------------------------------------------------------")
 print("Mean absolute Error : ", abs_error / len(act_ratings))
