@@ -1,5 +1,6 @@
 import numpy as np
 
+print("-----------------Reading Train Ratings -------------------")
 
 train_ratings_path = "./../Data/netflix/TrainingRatings.txt"
 test_ratings_path = "./../Data/netflix/TestingRatings.txt"
@@ -27,6 +28,9 @@ with open(train_ratings_path,'r') as reader:
 
         data_matrix[map_users[user_id]][map_titles[title]] = rating
 
+
+print("-----------------Computing Weights-------------------")
+
 '''
 Calculating Mean of voted ratings for each user
 '''
@@ -45,6 +49,8 @@ d_correlation = (deviation**2).sum(axis=1)[:,np.newaxis]
 denominator_correlation = d_correlation.dot(d_correlation.T)
 
 weights = numerator_correlation/np.sqrt(denominator_correlation)
+
+print("-----------------Weights Computed-------------------")
 
 '''
 Replacing any Nan or invalid values due to divison of 0 with Zeros
@@ -77,12 +83,12 @@ with open(test_ratings_path,'r') as reader:
         error_rating.append(error)
         abs_error += abs(error)
         squared_error += error**2
-        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error)
+        print(c," Acct : ",float(rating.replace("\n", "")), "Pred : ",predicted[(mapped_title,user_id)], "Error : ", error," len: ",len(act_ratings))
         c+=1
         # break
 
 
-print("Mean absolute Error : ",abs_error/len(act_ratings))
+print("Mean absolute Error : ", abs_error / len(act_ratings))
 print("Mean Squared Error : ",squared_error/len(act_ratings))
 
 print("Errors (MAE, MSE) : ",abs_error,squared_error)
