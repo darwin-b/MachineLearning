@@ -35,6 +35,6 @@ for layer_size in layer_sizes:
                                 learning_rate_init=.1)
             mlp.fit(X_train, y_train)
             print("\nTrain set score: %f" % mlp.score(X_train, y_train))
-            print("\nTest set score: %f" % mlp.score(X_train, y_train))
+            print("\nTest set score: %f" % mlp.score(X_test, y_test))
             print("\n---------------------------------------------------------------------------")
             print("-----------------------------------------------------------------------------")
