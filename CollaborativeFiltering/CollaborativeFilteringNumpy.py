@@ -77,11 +77,11 @@ with open(test_ratings_path, 'r') as reader:
 
         normalising_constant = weights[mapped_user].sum()
 
-        print(sum(~np.isnan(data_matrix[:, mapped_title])))
+        print(np.count_nonzero(np.isnan(data_matrix[:, mapped_title])))
         rated_diff = data_matrix[:, mapped_title] - mean_rating
-        print(sum(~np.isnan(rated_diff)))
+        print(np.count_nonzero(np.isnan(rated_diff)))
         rated_diff[np.isnan(rated_diff)]=0
-        print(sum(~np.isnan(rated_diff)))
+        print(np.count_nonzero(np.isnan(rated_diff)))
 
         predicted[(mapped_title, user_id)] = mean_rating[mapped_user] + (
             weights[mapped_user].dot(rated_diff)) / normalising_constant
