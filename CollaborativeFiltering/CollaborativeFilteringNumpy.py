@@ -76,8 +76,13 @@ with open(test_ratings_path, 'r') as reader:
         mapped_title = map_titles[title]
 
         normalising_constant = weights[mapped_user].sum()
+
+        print(sum(~np.isnan(data_matrix[:, mapped_title])))
         rated_diff = data_matrix[:, mapped_title] - mean_rating
+        print(sum(~np.isnan(rated_diff)))
         rated_diff[np.isnan(rated_diff)]=0
+        print(sum(~np.isnan(rated_diff)))
+
         predicted[(mapped_title, user_id)] = mean_rating[mapped_user] + (
             weights[mapped_user].dot(rated_diff)) / normalising_constant
         act_ratings.append(float(rating.replace("\n", "")))
@@ -97,7 +102,7 @@ with open(test_ratings_path, 'r') as reader:
 
         print(c, " Acct : ", float(rating.replace("\n", "")), "Pred : ", predicted[(mapped_title, user_id)])
 
-        # break
+        break
 
 print("Nan count : ",nan_counts)
 t_err = 0
